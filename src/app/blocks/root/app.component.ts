@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { User } from '../../core/users/user';
+import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 
@@ -7,16 +9,16 @@ import { Subscription, Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
- /*
-  user: Observable<User>;
+export class AppComponent implements OnDestroy, OnInit {
+  user$: Observable<User>;
   userSubcription: Subscription;
-*/
-  constructor(private router: Router) {}
-/*
+
+  constructor(private authService: AuthService,
+    private router: Router) {}
+
   ngOnInit(): void {
-    this.user = this.authService.user;
-    this.userSubcription = this.authService.findMe().subscribe(user => this.user = user);
+    this.user$ = this.authService.user;
+    this.userSubcription = this.authService.findMe().subscribe(user => this.user$ = user);
   }
 
 
@@ -30,5 +32,5 @@ export class AppComponent {
       this.userSubcription.unsubscribe();
     }
   }
-*/
+
 }

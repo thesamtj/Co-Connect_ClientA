@@ -1,25 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router'
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/auth/auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit {
-  userForm = new FormGroup({
-    fullname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-    repeatPassword: new FormControl('', [Validators.required, this.passwordsMatch])
-  });
+  userForm: FormGroup;
+  fullname: string = '';
+  email: string = '';
+  repeatPassword: string = '';
+  error: BehaviorSubject<string>;
+
   
-  constructor(private router: Router) {
+  constructor(private router: Router, 
+    private authService: AuthService, private fb: FormBuilder) {
       console.log('userform', this.userForm);
      }
 
   ngOnInit() {
+    this.error = new BehaviorSubject('');
+
+     // To initialize FormGroup
+     this.userForm = this.fb.group({
+      fullname: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.required],
+      repeatPassword: [null, Validators.compose([Validators.required, this.passwordsMatch])]
+    });
   }
 
   passwordsMatch(control: FormControl) {
@@ -30,36 +43,22 @@ export class RegisterComponent implements OnInit {
           }
         : null;
   }
-  
-/*
+
   register() {
+    this.setError('');
     if (!this.userForm.valid) {
       return;
     }
 
-    const user = this.userForm.getRawValue();
+    const user = this.userForm.value;
     this.authService
       .register(user)
-      .subscribe(s=> this.router.navigate(['/login']));
+      .subscribe(s=> this.router.navigate(['/auth']), e => (this.setError(e)));
   }
 
-  
-
-  get fullname() {
-    return this.userForm.get('fullname');
+  private setError(msg: any) {
+    return this.error.next(msg);
   }
 
-  get email() {
-    return this.userForm.get('email');
-  }
-
-  get password() {
-    return this.userForm.get('password');
-  }
-
-  get repeatPassword() {
-    return this.userForm.get('repeatPassword');
-  }
-
-  */
+ 
 }

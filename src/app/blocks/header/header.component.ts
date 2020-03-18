@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { User } from '@core/users/user';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +8,19 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  /*
   @Input()
   user: User
 
   @Output()
   logoutEvent = new EventEmitter<any>();
-*/
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  /*
   logout() {
     this.logoutEvent.emit();
   }
-*/
+
 }

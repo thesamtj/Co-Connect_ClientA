@@ -1,9 +1,10 @@
 a {
     margin: 2px;
-}
-
-.logo {
-    background-image: url();
+    cursor: pointer;
+  }
+  
+  .logo {
+    // background-image: url();
     height: 50px;
     width: 50x;
     vertical-align: middle;
@@ -12,21 +13,32 @@ a {
     margin-right: 0.2em;
     margin: 0px;
     padding: 0px;
-}
-
-.pm-title {
+  }
+  
+  .pm-title {
     margin-left: 0.2em;
-}
-
-.active-link {
+  }
+  
+  .active-link {
     background-color: blue;
-}
-
-.header-spacer {
+  }
+  
+  .header-spacer {
     flex: 1 1 auto;
-}
-
-.mat-icon {
+  }
+  
+  .left-spacer {
+      margin-left: 2%;
+  }
+  
+  .mat-icon {
     vertical-align: middle;
     margin: 0 5px;
-}
+  }
+  
+  .user-name {
+    display: inline;
+  }
+  
+  
+  

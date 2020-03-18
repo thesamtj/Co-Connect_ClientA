@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/auth/auth.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -13,13 +14,14 @@ export class LoginComponent implements OnInit {
   password: string;
   error: BehaviorSubject<string>;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, 
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.error = new BehaviorSubject('');
   }
 
-  /* login() {
+  login() {
     this.setError('');
     this.authService
     .login(this.email, this.password)
@@ -31,6 +33,4 @@ export class LoginComponent implements OnInit {
   private setError(msg: any) {
     return this.error.next(msg);
   }
-
-  */
 }

@@ -1,0 +1,1 @@
+export * from './screams/scream-data.service';
