@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://localhost:3000",
+        "target": "https://europe-west1-connectapp-5d121.cloudfunctions.net/api/",
         "secure": false
     }
 }

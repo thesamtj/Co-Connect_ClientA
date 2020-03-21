@@ -1,6 +1,9 @@
 export interface Scream {
-    productId: number,
-    price: number,
-    name: string,
-    imgUrl: string
+    screamId: string,
+    body: string,
+    userHandle: string,
+    createdAt: any,
+    commentCount: number,
+    likeCount: number,
+    userImage: any
 }

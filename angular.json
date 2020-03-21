@@ -68,8 +68,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Co-ConnectClientA:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "Co-ConnectClientA:build"
           },
           "configurations": {
             "production": {
