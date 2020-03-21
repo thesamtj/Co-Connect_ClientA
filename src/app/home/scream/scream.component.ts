@@ -11,7 +11,8 @@ import { ScreamDataService } from "@core/index";
 @Component({
   selector: "app-scream",
   templateUrl: "./scream.component.html",
-  styleUrls: ["./scream.component.scss"]
+  styleUrls: ["./scream.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScreamComponent implements OnInit {
   screams$: Observable<Scream[]>;

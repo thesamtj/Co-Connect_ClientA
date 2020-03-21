@@ -1,19 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { Observable } from "rxjs";
-import { Scream } from "@core/screams/scream";
 import { ScreamDataService } from "@core/index";
 import { LogService } from "@core/utils/log.service";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"]
+  styleUrls: ["./home.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private screamDataService: ScreamDataService,
-    private logService: LogService
-  ) {}
+    private screamDataService: ScreamDataService  ) {}
 
   ngOnInit() {
     // this.subscriptions.push(
