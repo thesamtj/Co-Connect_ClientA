@@ -1,8 +1,14 @@
 export interface User {
-    email: string,
-    fullname: string,
-    password: string,
-    roles?: any[]
-  }
-  
-  
+  userCredentials: {
+    website: string;
+    handle: string;
+    userId: any;
+    email: string;
+    bio: string;
+    imageUrl: any;
+    createdAt: any;
+    location: string;
+  };
+  likes: any[];
+  notifications: any[];
+}

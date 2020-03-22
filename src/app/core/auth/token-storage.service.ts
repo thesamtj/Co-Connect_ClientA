@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TokenStorageService {
-  TOKEN_KEY = "ProductMart.AuthToken";
+  TOKEN_KEY = "FBIdToken";
 
   constructor() { }
 

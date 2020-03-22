@@ -20,7 +20,6 @@ export class ScreamDataService {
       switchMap(screams => {
         console.log(`screams loaded successfully`, screams);
         this.setScream(screams);
-        // this.screams = screams;
         return of(screams);
       }),
       catchError(err => {
@@ -29,21 +28,7 @@ export class ScreamDataService {
       })
     );
   }
-  // getScreams(): Observable<Scream[]> {
-  //   return this.http.get<Scream>(`${this.apiUrl}screams`).pipe(
-  //     switchMap(screams => {
-  //       console.log(`the screams ${screams}`);
-  //       this.setScream(screams);
-  //       console.log(`scream successfully`, screams);
-  //       return of(screams);
-  //     }),
-  //     catchError(err => {
-  //       this.logService.log(`Server error occured`, err);
-  //       return throwError("scream details failed please contact admin");
-  //     })
-  //   );
-  // }
-
+  
   get scream() {
     return this.screams$.asObservable();
   }

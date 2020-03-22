@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     const user = this.userForm.value;
     this.authService
       .register(user)
-      .subscribe(s=> this.router.navigate(['/auth']), e => (this.setError(e)));
+      .subscribe(s=> this.router.navigate(['']), e => (this.setError(e)));
   }
 
   private setError(msg: any) {

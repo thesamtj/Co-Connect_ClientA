@@ -9,17 +9,9 @@ import { LogService } from "@core/utils/log.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private screamDataService: ScreamDataService  ) {}
+  constructor(private screamDataService: ScreamDataService) {}
 
   ngOnInit() {
-    // this.subscriptions.push(
-    //   this.screamDataService.getScreams().subscribe(screams => {
-    //     this.logService.log(`No.2; ${this.screams[0].body}`);
-    //     this.onDataLoad(screams);
-    //   })
-    // );
-
     this.screamDataService.getScreams().subscribe(screams => {
       console.log(`No.2; ${screams[0].body}`);
     });
@@ -29,11 +21,5 @@ export class HomeComponent implements OnInit {
   //   if (this.subscriptions) {
   //     this.subscriptions.forEach(s => s.unsubscribe());
   //   }
-  // }
-
-  // onDataLoad(screams: Scream[]) {
-  //   this.loading = false;
-  //   this.screams = screams;
-  //   this.logService.log(`No.3; ${this.screams[0].body}`);
   // }
 }

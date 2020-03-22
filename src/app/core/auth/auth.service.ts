@@ -6,17 +6,13 @@ import { HttpClient } from "@angular/common/http";
 import { TokenStorageService } from "./token-storage.service";
 import { LogService } from "../utils/log.service";
 
-interface UserDto {
-  user: User;
-  token: string;
-}
-
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
   private user$ = new BehaviorSubject<User>(null);
-  private apiUrl = "/api/auth/";
+  private apiUrl =
+    "https://europe-west1-connectapp-5d121.cloudfunctions.net/api/";
 
   constructor(
     private httpClient: HttpClient,
@@ -24,20 +20,14 @@ export class AuthService {
     private logService: LogService
   ) {}
 
-  get isLoggedIn() {
-    return this.user$.value != null;
-  }
-
   register(userToSave: any) {
-    return this.httpClient.post<any>(`${this.apiUrl}register`, userToSave).pipe(
-      switchMap(({ user, token }) => {
-        this.setUser(user);
-        this.tokenStorage.setToken(token);
-        console.log(`user registered successfully`, user);
-        return of(user);
+    return this.httpClient.post<any>(`${this.apiUrl}signup`, userToSave).pipe(
+      switchMap(({idToken}) => {
+        this.tokenStorage.setToken(idToken);
+        return this.getUserData();
       }),
       catchError(err => {
-        this.logService.log(`Server error occured ${err.error.message}`, err);
+        this.logService.log(`Server error occured`, err);
         return throwError("Registration failed please contact admin");
       })
     );
@@ -46,19 +36,31 @@ export class AuthService {
   login(email: string, password: string) {
     const loginCredentials = { email, password };
     return this.httpClient
-      .post<UserDto>(`${this.apiUrl}login`, loginCredentials)
+      .post<any>(`${this.apiUrl}login`, loginCredentials)
       .pipe(
-        switchMap(({ user, token }) => {
-          this.setUser(user);
-          this.tokenStorage.setToken(token);
-          console.log("user found", user);
-          return of(user);
+        switchMap(({idToken}) => {
+          this.tokenStorage.setToken(idToken);
+          return this.getUserData();
         }),
         catchError(err => {
-          this.logService.log(`Server error occured ${err.error.message}`, err);
-          return throwError("Login could not be verified. Please try again.");
+          this.logService.log(`Server error occured`, err);
+          return throwError("Login failed please contact admin");
         })
       );
+  }
+
+  getUserData() {
+    return this.httpClient.get<any>(`${this.apiUrl}user`).pipe(
+      switchMap(user => {
+        console.log(`user registered successfully`, user);
+        this.setUser(user);
+        return of(user);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occured`, err);
+        return throwError("Getting user failed please contact admin");
+      })
+    );
   }
 
   logout() {
