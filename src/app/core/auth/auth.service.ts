@@ -1,10 +1,13 @@
 import { Injectable } from "@angular/core";
 import { of, throwError, EMPTY, BehaviorSubject } from "rxjs";
 import { switchMap, catchError } from "rxjs/operators";
+import jwtDecode from 'jwt-decode';
 import { User } from "../users/user";
 import { HttpClient } from "@angular/common/http";
 import { TokenStorageService } from "./token-storage.service";
 import { LogService } from "../utils/log.service";
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: "root"
@@ -16,6 +19,7 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
+    private router: Router,
     private tokenStorage: TokenStorageService,
     private logService: LogService
   ) {}
@@ -52,7 +56,7 @@ export class AuthService {
   getUserData() {
     return this.httpClient.get<any>(`${this.apiUrl}user`).pipe(
       switchMap(user => {
-        console.log(`user registered successfully`, user);
+        console.log(`Auth user found`, user);
         this.setUser(user);
         return of(user);
       }),
@@ -84,23 +88,15 @@ export class AuthService {
     const token = this.tokenStorage.getToken();
     if (!token) {
       return EMPTY;
+    } else {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        this.logout();
+        this.router.navigate(['/auth']);
+      } else {
+        return this.getUserData();
+      }
     }
-
-    return this.httpClient.get<any>(`${this.apiUrl}findme`).pipe(
-      switchMap(({ user }) => {
-        this.setUser(user);
-        console.log(`user found`, user);
-        return of(user);
-      }),
-      catchError(e => {
-        console.log(
-          `Your login details could not be verified. Please try again`,
-          e
-        );
-        return throwError(
-          `Your login details could not be verified. Please try again`
-        );
-      })
-    );
   }
+    
 }
