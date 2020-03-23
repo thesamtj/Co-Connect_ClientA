@@ -55,7 +55,7 @@
             <mat-form-field class="full-width">
               <input
                 name="password"
-                formControlName="repeatPassword"
+                formControlName="confirmPassword"
                 matInput
                 placeholder="Repeat Password"
                 type="password"
@@ -65,9 +65,9 @@
             <mat-error>
               <span
                 *ngIf="
-                  !userForm.get('repeatPassword').valid &&
-                  userForm.get('repeatPassword').touched &&
-                  userForm.get('repeatPassword').errors.passwordMatch
+                  !userForm.get('confirmPassword').valid &&
+                  userForm.get('confirmPassword').touched &&
+                  userForm.get('confirmPassword').errors.passwordMatch
                 "
                 >Password should match !!!</span
               >

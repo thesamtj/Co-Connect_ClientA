@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   userForm: FormGroup;
   email: string = "";
   password: string = "";
-  repeatPassword: string = "";
+  confirmPassword: string = "";
   handle: string = "";
   error: BehaviorSubject<string>;
 
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
         Validators.compose([Validators.required, Validators.email])
       ],
       password: [null, Validators.required],
-      repeatPassword: [
+      confirmPassword: [
         null,
         Validators.compose([Validators.required, this.passwordsMatch])
       ],

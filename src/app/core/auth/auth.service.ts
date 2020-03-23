@@ -19,7 +19,6 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router,
     private tokenStorage: TokenStorageService,
     private logService: LogService
   ) {}
@@ -92,7 +91,7 @@ export class AuthService {
       const decodedToken = jwtDecode(token);
       if (decodedToken.exp * 1000 < Date.now()) {
         this.logout();
-        this.router.navigate(['/auth']);
+        return EMPTY;
       } else {
         return this.getUserData();
       }
