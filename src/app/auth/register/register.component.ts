@@ -27,9 +27,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder
-  ) {
-    console.log("userform", this.userForm);
-  }
+  ) {  }
 
   ngOnInit() {
     this.error = new BehaviorSubject("");
@@ -65,6 +63,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const user = this.userForm.value;
+    console.log(`Reg Compo ${user.handle}`);
     this.authService.register(user).subscribe(
       s => this.router.navigate([""]),
       e => this.setError(e)

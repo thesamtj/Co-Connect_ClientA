@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { User } from "../../core/users/user";
 import { AuthService } from "../../core/auth/auth.service";
 import { Router } from "@angular/router";
@@ -7,7 +7,8 @@ import { Subscription, Observable } from "rxjs";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy, OnInit {
   user$: Observable<User>;
