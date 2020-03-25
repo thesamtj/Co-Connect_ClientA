@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
-    "client": "ng serve --port 4230 -o",
+    "client": "ng serve --port 4250 -o",
     "start:server": "node server/server.js",
     "server": "nodemon server/server.js",
     "build": "ng build",

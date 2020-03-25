@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
+  ChangeDetectionStrategy} from "@angular/core";
 import { Scream } from "@core/screams/scream";
 import { Observable } from "rxjs";
 import { ScreamDataService } from "@core/index";
@@ -17,7 +15,8 @@ import { ScreamDataService } from "@core/index";
 export class ScreamComponent implements OnInit {
   screams$: Observable<Scream[]>;
 
-  constructor(private screamDataService: ScreamDataService) {}
+  constructor(private screamDataService: ScreamDataService) {
+  }
 
   ngOnInit() {
     this.screams$ = this.screamDataService.scream
