@@ -18,11 +18,15 @@
       </p>
       <hr />
       <p *ngIf='(user$ | async).userCredentials.location'>
-        {{(user$ | async).userCredentials.location}}
+        <mat-icon>location_on</mat-icon>{{(user$ | async).userCredentials.location}}
       </p>
       <hr />
-      <p *ngIf='(user$ | async).userCredentials.website'>
-        {{(user$ | async).userCredentials.website}}
+      <a *ngIf='(user$ | async).userCredentials.website' [href]='(user$ | async).userCredentials.website' target="_blank" rel="noopener noreferrer"><p >
+        <mat-icon>link</mat-icon> {{(user$ | async).userCredentials.website}}
+      </p></a>
+      <hr />
+      <p *ngIf='(user$ | async).userCredentials.createdAt'>
+        <mat-icon>calendar_today</mat-icon> {{(user$ | async).userCredentials.createdAt}}
       </p>
     </mat-card-content>
     <mat-card-actions>
