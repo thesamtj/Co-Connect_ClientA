@@ -1,36 +1,50 @@
 <mat-card class="example-card" *ngIf="!(user$ | async)">
-    <mat-card-content>
-      <p> Profile loading... </p>
-    </mat-card-content>
-  </mat-card>
+  <mat-card-content>
+    <p>Profile loading...</p>
+  </mat-card-content>
+</mat-card>
 
-<mat-card class="example-card" *ngIf="(user$ | async)">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>@{{(user$ | async).userCredentials.handle}}</mat-card-title>
-      <mat-card-subtitle>{{(user$ | async).userCredentials.handle}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image [src]='(user$ | async).userCredentials.imageUrl'>
-    <mat-card-content>
+<mat-card class="example-card" *ngIf="user$ | async">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title
+      >@{{ (user$ | async).userCredentials.handle }}</mat-card-title
+    >
+    <mat-card-subtitle>{{
+      (user$ | async).userCredentials.handle
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="(user$ | async).userCredentials.imageUrl" />
+  <mat-card-content>
+    <div *ngIf="(user$ | async).userCredentials.bio">
+      <span class="user-detail">
+        {{ (user$ | async).userCredentials.bio }}
+      </span>
       <hr />
-      <p *ngIf='(user$ | async).userCredentials.bio'> 
-        {{(user$ | async).userCredentials.bio}}
-      </p>
+    </div>
+    <div *ngIf="(user$ | async).userCredentials.location">
+      <mat-icon>location_on</mat-icon>
+      <span class="user-detail">{{ (user$ | async).userCredentials.location }} </span>
       <hr />
-      <p *ngIf='(user$ | async).userCredentials.location'>
-        <mat-icon>location_on</mat-icon>{{(user$ | async).userCredentials.location}}
-      </p>
+    </div>
+    <div *ngIf="(user$ | async).userCredentials.website">
+      <a
+        [href]="(user$ | async).userCredentials.website"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <mat-icon>link</mat-icon>
+        <span class="user-detail">{{ (user$ | async).userCredentials.website }} </span></a
+      >
       <hr />
-      <a *ngIf='(user$ | async).userCredentials.website' [href]='(user$ | async).userCredentials.website' target="_blank" rel="noopener noreferrer"><p >
-        <mat-icon>link</mat-icon> {{(user$ | async).userCredentials.website}}
-      </p></a>
-      <hr />
-      <p *ngIf='(user$ | async).userCredentials.createdAt'>
-        <mat-icon>calendar_today</mat-icon> {{(user$ | async).userCredentials.createdAt}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+    </div>
+    <div *ngIf="(user$ | async).userCredentials.createdAt">
+      <mat-icon>calendar_today</mat-icon>
+      <span class="user-detail">{{ (user$ | async).userCredentials.createdAt }} </span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

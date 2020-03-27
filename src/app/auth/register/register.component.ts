@@ -21,13 +21,14 @@ export class RegisterComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   handle: string = "";
+  loading = false;
   error: BehaviorSubject<string>;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder
-  ) {  }
+  ) {}
 
   ngOnInit() {
     this.error = new BehaviorSubject("");
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.setError("");
+    this.loading = true;
     if (!this.userForm.valid) {
       return;
     }
@@ -65,8 +67,14 @@ export class RegisterComponent implements OnInit {
     const user = this.userForm.value;
     console.log(`Reg Compo ${user.handle}`);
     this.authService.register(user).subscribe(
-      s => this.router.navigate([""]),
-      e => this.setError(e)
+      s => {
+        this.router.navigate([""]);
+        this.loading = false;
+      },
+      e => {
+        this.setError(e);
+        this.loading = false;
+      }
     );
   }
 

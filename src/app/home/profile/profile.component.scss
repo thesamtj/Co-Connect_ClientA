@@ -6,3 +6,17 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
+
+  .mat-icon {
+    vertical-align: middle;
+    margin: 0 5px;
+  }
+
+  .user-detail {
+    display: inline;
+  }
+
+  a {
+    margin: 2px;
+    cursor: pointer;
+  }
