@@ -14,17 +14,32 @@
       (user$ | async).userCredentials.handle
     }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="(user$ | async).userCredentials.imageUrl" />
+  <div class="card-image">
+    <img mat-card-image [src]="(user$ | async).userCredentials.imageUrl" />
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  <input
+    name="imageChange"
+    placeholder="Change image"
+    type="file"
+    id="imageInput"
+    hidden="hidden"
+    (change)="handleImageChange($event)"
+  />
+  <button (click)="handleEditPicture()"><mat-icon>edit</mat-icon></button
+  ><br /><br />
   <mat-card-content>
     <div *ngIf="(user$ | async).userCredentials.bio">
-      <span class="user-detail">
+      <span>
         {{ (user$ | async).userCredentials.bio }}
       </span>
       <hr />
     </div>
     <div *ngIf="(user$ | async).userCredentials.location">
       <mat-icon>location_on</mat-icon>
-      <span class="user-detail">{{ (user$ | async).userCredentials.location }} </span>
+      <span class="user-detail"
+        >{{ (user$ | async).userCredentials.location }}
+      </span>
       <hr />
     </div>
     <div *ngIf="(user$ | async).userCredentials.website">
@@ -34,13 +49,17 @@
         rel="noopener noreferrer"
       >
         <mat-icon>link</mat-icon>
-        <span class="user-detail">{{ (user$ | async).userCredentials.website }} </span></a
+        <span class="user-detail"
+          >{{ (user$ | async).userCredentials.website }}
+        </span></a
       >
       <hr />
     </div>
     <div *ngIf="(user$ | async).userCredentials.createdAt">
       <mat-icon>calendar_today</mat-icon>
-      <span class="user-detail">{{ (user$ | async).userCredentials.createdAt }} </span>
+      <span class="user-detail"
+        >{{ (user$ | async).userCredentials.createdAt }}
+      </span>
     </div>
   </mat-card-content>
   <mat-card-actions>

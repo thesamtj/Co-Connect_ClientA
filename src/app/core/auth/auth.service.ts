@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import { of, throwError, EMPTY, BehaviorSubject } from "rxjs";
 import { switchMap, catchError } from "rxjs/operators";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import { User } from "../users/user";
 import { HttpClient } from "@angular/common/http";
 import { TokenStorageService } from "./token-storage.service";
 import { LogService } from "../utils/log.service";
-import { Router } from '@angular/router';
-
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -25,7 +24,7 @@ export class AuthService {
 
   register(userToSave: any) {
     return this.httpClient.post<any>(`${this.apiUrl}signup`, userToSave).pipe(
-      switchMap(({idToken}) => {
+      switchMap(({ idToken }) => {
         this.tokenStorage.setToken(idToken);
         return this.getUserData();
       }),
@@ -41,7 +40,7 @@ export class AuthService {
     return this.httpClient
       .post<any>(`${this.apiUrl}login`, loginCredentials)
       .pipe(
-        switchMap(({idToken}) => {
+        switchMap(({ idToken }) => {
           this.tokenStorage.setToken(idToken);
           return this.getUserData();
         }),
@@ -97,5 +96,19 @@ export class AuthService {
       }
     }
   }
-    
+
+  uploadImage(formData) {
+    return this.httpClient
+      .post<any>(`${this.apiUrl}user/image`, formData)
+      .pipe(
+        switchMap(() => {
+          return this.getUserData();
+        }),
+        catchError(err => {
+          this.logService.log(`Server error occured`, err);
+          return throwError("Image upload failed");
+        })
+      );
+  }
+
 }

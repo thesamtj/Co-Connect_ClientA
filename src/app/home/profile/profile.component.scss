@@ -1,22 +1,35 @@
 .example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+  max-width: 400px;
+}
 
-  .mat-icon {
-    vertical-align: middle;
-    margin: 0 5px;
-  }
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
 
-  .user-detail {
-    display: inline;
-  }
+.mat-icon {
+  vertical-align: middle;
+  margin: 0 5px;
+}
 
-  a {
-    margin: 2px;
-    cursor: pointer;
-  }
+.user-detail {
+  display: inline;
+}
+
+a {
+  margin: 2px;
+  cursor: pointer;
+}
+
+.card-image {
+  position: relative;
+}
+
+.mat-spinner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
