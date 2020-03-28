@@ -111,4 +111,18 @@ export class AuthService {
       );
   }
 
+  editUserDetails(userDetails: { bio: string; website: string; location: string; }) {
+    return this.httpClient
+      .post<any>(`${this.apiUrl}user`, userDetails)
+      .pipe(
+        switchMap(() => {
+          return this.getUserData();
+        }),
+        catchError(err => {
+          this.logService.log(`Server error occured`, err);
+          return throwError("Image upload failed");
+        })
+      );
+  }
+
 }

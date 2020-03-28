@@ -9,7 +9,7 @@ import { User } from '@core/users/user';
 })
 export class HeaderComponent implements OnInit {
   @Input()
-  user: User
+  user: User;
 
   @Output()
   logoutEvent = new EventEmitter<any>();

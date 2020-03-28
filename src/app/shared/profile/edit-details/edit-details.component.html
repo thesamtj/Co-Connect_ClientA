@@ -1,0 +1,71 @@
+<div mat-dialog-container>
+  <h1 mat-dialog-title>Edit your details</h1>
+  <div mat-dialog-content>
+    <div class="pm-dialog-row">
+      <form>
+        <table cellspacing="0" class="full-width">
+          <tr>
+            <td>
+              <mat-form-field class="full-width">
+                <input
+                  name="bio"
+                  [(ngModel)]="bio"
+                  label="Bio"
+                  multiline
+                  rows="3"
+                  matInput
+                  placeholder="A short bio about yourself"
+                  type="text"
+                />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="full-width">
+                <input
+                  name="website"
+                  label="Website"
+                  [(ngModel)]="website"
+                  matInput
+                  placeholder="Your personal/professional website"
+                  type="text"
+                />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="full-width">
+                <input
+                  name="location"
+                  label="Location"
+                  [(ngModel)]="location"
+                  matInput
+                  placeholder="Where you live"
+                  type="text"
+                />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-error *ngIf="error">{{ error | async }}</mat-error>
+            </td>
+          </tr>
+        </table>
+
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </form>
+    </div>
+    <div class="pm-dialog-row">
+      <button mat-raised-button color="primary" (click)="closeDialog()">
+        Cancel
+      </button>
+
+      <button mat-raised-button color="accent" (click)="handleSubmit()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

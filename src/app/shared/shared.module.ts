@@ -1,27 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SharedRoutingModule } from './shared-routing.module';
 import { RouterModule } from '@angular/router';
 import { PmMaterialModule } from './material-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditDetailsComponent } from './profile/edit-details/edit-details.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [EditDetailsComponent],
   imports: [
     CommonModule,
-    SharedRoutingModule,
     RouterModule,
-    PmMaterialModule
+    PmMaterialModule,
+    FormsModule,
+    FlexLayoutModule
   ],
   exports: [
     PmMaterialModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    FlexLayoutModule
-  ]
+    FlexLayoutModule,
+    EditDetailsComponent
+  ],
+  entryComponents: [EditDetailsComponent]
 })
 export class SharedModule { }
