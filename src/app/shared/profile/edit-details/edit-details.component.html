@@ -11,6 +11,7 @@
                   name="bio"
                   [(ngModel)]="bio"
                   label="Bio"
+                  [value]="(bio)"
                   multiline
                   rows="3"
                   matInput
@@ -26,6 +27,7 @@
                 <input
                   name="website"
                   label="Website"
+                  [value]="(website)"
                   [(ngModel)]="website"
                   matInput
                   placeholder="Your personal/professional website"
@@ -40,6 +42,7 @@
                 <input
                   name="location"
                   label="Location"
+                  [value]="(location)"
                   [(ngModel)]="location"
                   matInput
                   placeholder="Where you live"

@@ -11,19 +11,38 @@
       </button>
       <span class="pm-title">Co-Connect</span>
       <span class="left-spacer"></span>
-      <div fxShow="true" fxHide.lt-md="true">
+
+
+      <div *ngIf="(user)" fxShow="true" fxHide.lt-md="true">
+        <a mat-button routerLink="/home" routerLinkActive="active-link"
+          ><mat-icon>add</mat-icon>
+        </a>
+      </div>
+      <div *ngIf="(user)" fxShow="true" fxHide.lt-md="true">
+        <a mat-button routerLink="/home" routerLinkActive="active-link"
+          ><mat-icon>home</mat-icon>
+        </a>
+      </div>
+      <div *ngIf="(user)" fxShow="true" fxHide.lt-md="true">
+        <a mat-button routerLink="/home" routerLinkActive="active-link"
+          ><mat-icon>notifications</mat-icon>
+        </a>
+      </div>
+
+
+      <div *ngIf="!user" fxShow="true" fxHide.lt-md="true">
         <a mat-button routerLink="/home" routerLinkActive="active-link"
           >Home
         </a>
       </div>
-      <div fxShow="true" fxHide.lt-md="true">
+      <div *ngIf="!user" fxShow="true" fxHide.lt-md="true">
         <a mat-button routerLink="/auth/register" routerLinkActive="active-link"
           >Signup
         </a>
       </div>
       <span class="header-spacer"></span>
       <a
-        *ngIf="!user"
+        *ngIf="!(user)"
         mat-button
         routerLink="/auth"
         routerLinkActive="active-link"
@@ -31,7 +50,7 @@
         <mat-icon>person_outliner</mat-icon>Login
       </a>
       <div>
-        <a [matMenuTriggerFor]="menu" *ngIf="user" mat-button
+        <a [matMenuTriggerFor]="menu" *ngIf="(user)" mat-button
           ><mat-icon>account_circle</mat-icon>
           <span fxShow="true" fxHide.lt-md="true" class="user-name">
             <span>Hi</span>
@@ -52,11 +71,11 @@
       <mat-nav-list>
         <a
           mat-list-item
-          routerLink="/products"
+          routerLink="/home"
           (click)="sidenav.toggle()"
           routerLinkActive="active-link"
         >
-          Products
+        Home
         </a>
       </mat-nav-list>
     </mat-sidenav>

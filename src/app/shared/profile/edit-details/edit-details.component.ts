@@ -59,6 +59,6 @@ export class EditDetailsComponent implements OnInit {
   }
 
   private closeDialog() {
-    this.matDialogRef.close();
+    this.matDialogRef.close("Thanks for using me!");
   }
 }

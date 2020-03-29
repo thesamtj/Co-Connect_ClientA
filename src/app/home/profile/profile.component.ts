@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { User } from "@core/users/user";
 import { AuthService } from "@core/auth/auth.service";
 import { Router } from "@angular/router";
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDetailsComponent } from '@shared/profile/edit-details/edit-details.component';
 
 @Component({
@@ -50,14 +50,16 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(userCredentials) {
-    this.matDialog.open(EditDetailsComponent, {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
       width: "400px",
       height: "330px",
       data: { userCredentials },
       disableClose: true
-    });
+    }
+    this.matDialog.open(EditDetailsComponent, dialogConfig);
   }
-
+[]
   logout() {
     this.authService.logout();
     this.router.navigate(["/"]);
