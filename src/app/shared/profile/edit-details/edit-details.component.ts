@@ -4,17 +4,12 @@ import {
   ChangeDetectionStrategy,
   Inject
 } from "@angular/core";
-import { AuthService } from '@core/auth/auth.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from "@core/auth/auth.service";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 interface EditDetailsData {
   website: string;
-  handle: string;
-  userId: any;
-  email: string;
   bio: string;
-  imageUrl: any;
-  createdAt: any;
   location: string;
 }
 
@@ -38,7 +33,7 @@ export class EditDetailsComponent implements OnInit {
     this.website = data.website ? data.website : "";
     this.location = data.location ? data.location : "";
     console.log(
-      "showing user credentials",
+      "Edit showing user credentials",
       this.bio,
       this.website,
       this.location
@@ -55,7 +50,12 @@ export class EditDetailsComponent implements OnInit {
     };
     this.authService
       .editUserDetails(userDetails)
-      .subscribe(() => this.closeDialog());
+      .subscribe( s => {
+       this.closeDialog();
+      },
+      e => {
+        console.log(e);
+      });
   }
 
   private closeDialog() {

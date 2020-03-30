@@ -4,7 +4,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card class="example-card" *ngIf="user$ | async">
+<mat-card class="example-card" *ngIf="(user$ | async)">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title

@@ -50,18 +50,24 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(userCredentials) {
+    const {
+      bio,
+      website,
+      location
+    } = userCredentials;
+
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      width: "400px",
-      height: "330px",
-      data: { userCredentials },
-      disableClose: true
-    }
+    dialogConfig.data = { bio, website, location };
+    dialogConfig.width = "400px";
+    dialogConfig.height = "330px";
+    dialogConfig.disableClose = true;
+
     this.matDialog.open(EditDetailsComponent, dialogConfig);
   }
-[]
+
   logout() {
     this.authService.logout();
     this.router.navigate(["/"]);
   }
+  
 }
