@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { PmMaterialModule } from './material-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditDetailsComponent } from './profile/edit-details/edit-details.component';
+import { LikeButtonComponent } from './scream/like-button/like-button.component';
 
 
 
 @NgModule({
-  declarations: [EditDetailsComponent],
+  declarations: [EditDetailsComponent, LikeButtonComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,7 +24,8 @@ import { EditDetailsComponent } from './profile/edit-details/edit-details.compon
     ReactiveFormsModule,
     RouterModule,
     FlexLayoutModule,
-    EditDetailsComponent
+    EditDetailsComponent,
+    LikeButtonComponent
   ],
   entryComponents: [EditDetailsComponent]
 })

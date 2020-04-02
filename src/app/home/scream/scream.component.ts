@@ -19,7 +19,7 @@ export class ScreamComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.screams$ = this.screamDataService.scream
+    this.screams$ = this.screamDataService.screams
   }
 
   ngOnDestroy() {}

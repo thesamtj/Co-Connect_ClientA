@@ -125,4 +125,29 @@ export class AuthService {
       );
   }
 
+  likeScream(scream) {
+    this.user.subscribe(user => {
+      const likeScream = {
+        userHandle: user.userCredentials.handle,
+        screamId: scream.screamId
+      };
+      const updatedUser = user;
+      updatedUser.likes.push(likeScream);
+      console.log('The like updatedUser', updatedUser)
+      this.setUser(updatedUser);
+      console.log('user successfully updated with likes', updatedUser);
+    })
+  }
+
+  unlikeScream(scream) {
+    this.user.subscribe(user => {
+      const updatedUser = user;
+      updatedUser.likes.filter(
+        like => like.screamId !== scream.screamId
+      );
+      this.setUser(updatedUser);
+      console.log('user successfully updated with unlikes', updatedUser)
+    })
+  }
+
 }
