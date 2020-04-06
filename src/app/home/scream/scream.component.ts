@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy} from "@angular/core";
 import { Scream } from "@core/screams/scream";
 import { Observable } from "rxjs";
-import { ScreamDataService } from "@core/index";
+import { ScreamQueries } from '@core/screams/scream-queries';
 
 @Component({
   selector: "app-scream",
@@ -13,13 +13,20 @@ import { ScreamDataService } from "@core/index";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScreamComponent implements OnInit {
+  loading: boolean;
   screams$: Observable<Scream[]>;
 
-  constructor(private screamDataService: ScreamDataService) {
+  constructor(private screamQueries: ScreamQueries) {
   }
 
   ngOnInit() {
-    this.screams$ = this.screamDataService.screams
+    this.screamQueries.screamState.subscribe(s => {
+      this.loading = s.loading;
+      console.log("value of loading: ", this.loading);
+    });
+    
+    this.screams$ = this.screamQueries.screams;
+    console.log("Screams arrived here safely", this.screams$);
   }
 
   ngOnDestroy() {}

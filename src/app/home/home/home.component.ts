@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { ScreamDataService } from "@core/index";
-import { LogService } from "@core/utils/log.service";
+import { ScreamService } from "@core/screams/scream.service";
+import { ScreamQueries } from "@core/screams/scream-queries";
 
 @Component({
   selector: "app-home",
@@ -9,10 +9,14 @@ import { LogService } from "@core/utils/log.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  constructor(private screamDataService: ScreamDataService) {}
+
+  constructor(
+    private screamService: ScreamService,
+    private screamQueries: ScreamQueries
+  ) {}
 
   ngOnInit() {
-    this.screamDataService.getScreams().subscribe(screams => {
+    this.screamService.getScreams().subscribe(screams => {
       console.log(`No.2; ${screams[0].body}`);
     });
   }

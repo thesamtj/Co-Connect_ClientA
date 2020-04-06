@@ -1,8 +1,4 @@
-<mat-card class="example-card" *ngIf="!(screams$ | async)">
-  <mat-card-content>
-    <p>Scream loading...</p>
-  </mat-card-content>
-</mat-card>
+<p *ngIf="loading">Scream loading...</p>
 
 <mat-card class="example-card" *ngFor="let scream of screams$ | async">
   <mat-card-header>
@@ -15,15 +11,11 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <app-like-button [screamId]="(scream.screamId)"></app-like-button>
-    <span>
-      {{ scream.likeCount }} Likes
-    </span>
+    <app-like-button [screamId]="scream.screamId"></app-like-button>
+    <span> {{ scream.likeCount }} Likes </span>
     <button mat-raised-button color="primary">
       <mat-icon> chat </mat-icon>
     </button>
-    <span>
-      {{ scream.commentCount }} Comments
-    </span>
+    <span> {{ scream.commentCount }} Comments </span>
   </mat-card-actions>
 </mat-card>

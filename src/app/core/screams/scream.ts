@@ -2,8 +2,8 @@ export interface Scream {
     screamId: string,
     body: string,
     userHandle: string,
-    createdAt: any,
+    createdAt: Date,
     commentCount: number,
     likeCount: number,
-    userImage: any
+    userImage: string
 }

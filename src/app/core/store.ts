@@ -1,27 +1,31 @@
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from "rxjs";
+import { map } from 'rxjs/operators';
 
 export class Store<T> {
-    state$: Observable<T>;
-    private _state$: BehaviorSubject<T>;
+  state$: Observable<T>;
+  private _state$: BehaviorSubject<T>;
 
-    protected constructor(initialState: T) {
-        this._state$ = new BehaviorSubject<T>(initialState);
-        this.state$ = this._state$.asObservable();
-    }
+  protected constructor(initialState: T) {
+    this._state$ = new BehaviorSubject<T>(initialState);
+    this.state$ = this._state$.asObservable();
+  }
 
-    // sync
-    get state() {
-        return this._state$.getValue();
-    }
+  select(callBackFunction) {
+    return this.state$.pipe(map(callBackFunction));
+  }
 
-    protected setState(nextState: T): void {
-        console.log('--------------------------');
-        console.log('Previous State', this.state);
+  // sync
+  get state() {
+    return this._state$.getValue();
+  }
 
-        this._state$.next(nextState);
+  protected setState(nextState: T): void {
+    console.log("--------------------------");
+    console.log("Previous State", this.state);
 
-        console.log('Current State', this.state);
-        console.log('--------------------------');
+    this._state$.next(nextState);
 
-    }
+    console.log("Current State", this.state);
+    console.log("--------------------------");
+  }
 }
