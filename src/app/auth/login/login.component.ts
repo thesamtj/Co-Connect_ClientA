@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "../../core/auth/auth.service";
 import { BehaviorSubject } from "rxjs";
+import { UserService } from "@core/users/user.service";
+import { UserQueries } from '@core/users/user-queries';
 
 @Component({
   selector: "app-login",
@@ -12,26 +13,28 @@ import { BehaviorSubject } from "rxjs";
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
-  loading = false;
+  loading: boolean;
   error: BehaviorSubject<string>;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private userService: UserService, private userQueries: UserQueries) {}
 
   ngOnInit() {
     this.error = new BehaviorSubject("");
+    this.userQueries.userState.subscribe(s => {
+      this.loading = s.loading;
+      console.log("login user state loading: ", this.loading);
+    });
   }
 
   login() {
     this.setError("");
     this.loading = true;
-    this.authService.login(this.email, this.password).subscribe(
-      s => {
+    this.userService.login(this.email, this.password).subscribe(
+      () => {
         this.router.navigate([""]);
-        this.loading = false;
       },
       e => {
         this.setError(e);
-        this.loading = false;
       }
     );
   }

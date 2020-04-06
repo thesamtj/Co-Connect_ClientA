@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@core/store";
 import { ScreamState, initialState } from "./scream-state";
-import { LogService } from "@core/utils/log.service";
 
 @Injectable({ providedIn: "root" })
 export class ScreamStore extends Store<ScreamState> {

@@ -1,8 +1,13 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { User } from "../../core/users/user";
-import { AuthService } from "../../core/auth/auth.service";
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
+import { UserService } from "@core/users/user.service";
+import { UserQueries } from "@core/users/user-queries";
 
 @Component({
   selector: "app-root",
@@ -11,25 +16,29 @@ import { Subscription, Observable } from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy, OnInit {
-  user$: Observable<User>;
+  userCredentials$: Observable<any>;
   userSubcription: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private userQueries: UserQueries,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.user$ = this.authService.user;
-    this.userSubcription = this.authService.findMe().subscribe(user => {
+    this.userCredentials$ = this.userQueries.user;
+    this.userSubcription = this.userService.findMe().subscribe(user => {
       if (user === true) {
-        this.user$ = user;
+        this.userCredentials$ = user.userCredentials;
       } else {
         this.router.navigate(["/auth"]);
       }
     });
-    console.log(`App user details  ${this.user$}`);
+    console.log(`App user details  ${this.userCredentials$}`);
   }
 
   logout() {
-    this.authService.logout();
+    this.userService.logout();
     this.router.navigate(["/"]);
   }
 

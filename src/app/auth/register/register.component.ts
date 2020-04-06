@@ -6,8 +6,9 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../../core/auth/auth.service";
 import { BehaviorSubject } from "rxjs";
+import { UserService } from '@core/users/user.service';
+import { UserQueries } from '@core/users/user-queries';
 
 @Component({
   selector: "app-register",
@@ -21,17 +22,22 @@ export class RegisterComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   handle: string = "";
-  loading = false;
+  loading: boolean;
   error: BehaviorSubject<string>;
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private userService: UserService, private userQueries: UserQueries,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.error = new BehaviorSubject("");
+
+    this.userQueries.userState.subscribe(s => {
+      this.loading = s.loading;
+      console.log("Register user state loading: ", this.loading);
+    });
 
     // To initialize FormGroup
     this.userForm = this.fb.group({
@@ -66,14 +72,12 @@ export class RegisterComponent implements OnInit {
 
     const user = this.userForm.value;
     console.log(`Reg Compo ${user.handle}`);
-    this.authService.register(user).subscribe(
-      s => {
+    this.userService.register(user).subscribe(
+      () => {
         this.router.navigate([""]);
-        this.loading = false;
       },
       e => {
         this.setError(e);
-        this.loading = false;
       }
     );
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { User } from '@core/users/user';
+import { UserCredentials } from '@core/users/userCredentials';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { User } from '@core/users/user';
 })
 export class HeaderComponent implements OnInit {
   @Input()
-  user: User;
+  user: UserCredentials;
 
   @Output()
   logoutEvent = new EventEmitter<any>();

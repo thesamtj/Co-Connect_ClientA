@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScreamStore } from './scream-store';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
