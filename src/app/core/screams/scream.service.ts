@@ -35,6 +35,42 @@ export class ScreamService {
     );
   }
 
+  // Like a scream
+  likeScream(screamId) {
+    return this.http.get<Scream>(`${this.apiUrl}scream/${screamId}/like`).pipe(
+      switchMap(scream => {
+        console.log(`scream like loaded successfully`, scream);
+        this.screamStore.;
+        return of(scream);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occured`, err);
+        return throwError("Scream failed please contact admin");
+      })
+    );
+  }
+  // Unlike a scream
+  unlikeScream(screamId) {
+    return this.http
+      .get<Scream>(`${this.apiUrl}scream/${screamId}/unlike`)
+      .pipe(
+        switchMap((scream: Scream) => {
+          console.log(`scream like loaded successfully`, scream);
+          this.screams.subscribe(screams => {
+            let index = screams.findIndex(
+              scream => scream.screamId === scream.screamId
+            );
+            screams[index] = scream;
+          });
+          return of(scream);
+        }),
+        catchError(err => {
+          this.logService.log(`Server error occured`, err);
+          return throwError("Scream failed please contact admin");
+        })
+      );
+  }
+
   // updateScream(screamToUpdate: Scream) {
   //   screamToUpdate = {
   //     ...screamToUpdate,

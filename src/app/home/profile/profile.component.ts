@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
-import { User } from "@core/users/user";
 import { AuthService } from "@core/auth/auth.service";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDetailsComponent } from '@shared/profile/edit-details/edit-details.component';
+import { UserService } from '@core/users/user.service';
+import { UserQueries } from '@core/users/user-queries';
 
 @Component({
   selector: "app-profile",
@@ -13,13 +14,20 @@ import { EditDetailsComponent } from '@shared/profile/edit-details/edit-details.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
-  user$: Observable<User>;
-  loading = false;
+  userCredentials$: Observable<any>;
+  loading: boolean;
+  authenticated: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private matDialog: MatDialog) {}
+  constructor(private userService: UserService, private userQueries: UserQueries, private router: Router, private matDialog: MatDialog) {}
 
   ngOnInit() {
-    this.user$ = this.authService.user;
+    this.userQueries.userState.subscribe(s => {
+      this.loading = s.loading;
+      this.authenticated = s.authenticated;
+      console.log("Profile user state loading: ", this.loading);
+    });
+    this.userCredentials$ = this.userQueries.user;
+    console.log("Profile usersCredentials: ", this.userCredentials$);
   }
 
   handleEditPicture() {
@@ -31,22 +39,19 @@ export class ProfileComponent implements OnInit {
     const image = $event.target.files[0];
     const formData = new FormData();
     formData.append("image", image, image.name);
-    this.loading = true;
-    this.authService.uploadImage(formData).subscribe(
+    this.userService.uploadImage(formData).subscribe(
       s => {
         console.log("successfully uploaded", s);
-        this.loading = false;
       },
       e => {
         console.log(e);
-        this.loading = false;
       }
     );
   }
 
   editDetails() {
-    this.user$
-      .subscribe(s => this.openDialog(s.userCredentials));
+    this.userCredentials$
+      .subscribe(s => this.openDialog(s));
   }
 
   openDialog(userCredentials) {
@@ -66,7 +71,7 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.userService.logout();
     this.router.navigate(["/"]);
   }
   

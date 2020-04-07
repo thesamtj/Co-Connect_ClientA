@@ -20,31 +20,32 @@ export class UserStore extends Store<UserState> {
     this.setState(newState);
   }
 
-    setAuthenticated() {
-      console.log("[User] set Authenticated");
+  setAuthenticated() {
+    console.log("[User] set Authenticated");
 
-      const newState = {
-        ...this.state,
-        authenticated: true
-      };
+    const newState = {
+      ...this.state,
+      authenticated: true
+    };
 
-      this.setState(newState);
-    }
+    this.setState(newState);
+  }
 
-    setUnAuthenticated() {
-        console.log("[User] set UnAuthenticated");
-        this.setState(initialState);
-      }
+  setUnAuthenticated() {
+    console.log("[User] set UnAuthenticated");
+    this.setState(initialState);
+  }
 
-    loadingUser() {
-      console.log("[User] loading");
+  loadingUser() {
+    console.log("[User] loading");
 
-      const newState = {
-        ...this.state,
-        loading: true
-      };
+    const newState = {
+      ...this.state,
+      loading: true
+    };
 
-      this.setState(newState);
-    }
+    this.setState(newState);
+  }
 
+  
 }

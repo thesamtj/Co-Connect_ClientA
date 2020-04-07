@@ -42,6 +42,41 @@ export class ScreamStore extends Store<ScreamState> {
     this.setState(newState);
   }
 
+  likeScream(scream) {
+    console.log("[Like] loading");
+
+    let index = this.state.screams.findIndex(
+      scream => scream.screamId === scream.screamId
+    );
+    this.state.screams[index] = scream;
+    if (this.state.scream. === scream.screamId) {
+      this.state.scream = scream;
+    }
+
+    const newState = {
+      ...this.state
+    };
+
+    this.setState(newState);
+  }
+
+  unlikeScream(scream) {
+    console.log("[Unlike] loading");
+
+    let index = state.screams.findIndex(
+      scream => scream.screamId === action.payload.screamId
+    );
+    state.screams[index] = action.payload;
+    if (state.scream.screamId === action.payload.screamId) {
+      state.scream = action.payload;
+    }
+
+    const newState = {
+      ...this.state
+    };
+
+    this.setState(newState);
+  }
 
   // clearScream() {
   //   console.log("[Scream] Clear Scream");
@@ -84,5 +119,4 @@ export class ScreamStore extends Store<ScreamState> {
 
   //   this.setState(newState);
   // }
-
 }

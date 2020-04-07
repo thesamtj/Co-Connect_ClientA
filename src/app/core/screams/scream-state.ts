@@ -2,7 +2,7 @@ import { Scream } from './scream';
 
 export interface ScreamState {
     screams: Scream[];
-    scream: {};
+    scream: Scream;
     loading: boolean;
 }
 

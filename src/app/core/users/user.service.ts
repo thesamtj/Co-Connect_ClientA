@@ -5,9 +5,9 @@ import { HttpClient } from "@angular/common/http";
 import { TokenStorageService } from "@core/auth/token-storage.service";
 import { switchMap, catchError } from "rxjs/operators";
 import { throwError, of, EMPTY } from "rxjs";
-import { UserStore } from './user-store';
-import { User } from './user';
-import { UserCredentials } from './userCredentials';
+import { UserStore } from "./user-store";
+import { User } from "./user";
+import { UserCredentials } from "./userCredentials";
 
 @Injectable({
   providedIn: "root"
@@ -60,7 +60,7 @@ export class UserService {
     this.userStore.loadingUser();
 
     return this.http.get<any>(`${this.apiUrl}user`).pipe(
-      switchMap((user) => {
+      switchMap(user => {
         console.log(`Auth user found`, user);
         this.userStore.setUser(user);
         return of(user);
@@ -96,6 +96,59 @@ export class UserService {
       }
     }
   }
+
+  uploadImage(formData) {
+    this.userStore.loadingUser();
+    
+    return this.http.post<any>(`${this.apiUrl}user/image`, formData).pipe(
+      switchMap(() => {
+        return this.getUserData();
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occured`, err);
+        return throwError("Image upload failed");
+      })
+    );
+  }
+
+  // editUserDetails(userDetails: {
+  //   bio: string;
+  //   website: string;
+  //   location: string;
+  // }) {
+  //   return this.httpClient.post<any>(`${this.apiUrl}user`, userDetails).pipe(
+  //     switchMap(() => {
+  //       return this.getUserData();
+  //     }),
+  //     catchError(err => {
+  //       this.logService.log(`Server error occured`, err);
+  //       return throwError("Image upload failed");
+  //     })
+  //   );
+  // }
+
+  // likeScream(scream) {
+  //   this.user.subscribe(user => {
+  //     const likeScream = {
+  //       userHandle: user.userCredentials.handle,
+  //       screamId: scream.screamId
+  //     };
+  //     const updatedUser = user;
+  //     updatedUser.likes.push(likeScream);
+  //     console.log("The like updatedUser", updatedUser);
+  //     this.setUser(updatedUser);
+  //     console.log("user successfully updated with likes", updatedUser);
+  //   });
+  // }
+
+  // unlikeScream(scream) {
+  //   this.user.subscribe(user => {
+  //     const updatedUser = user;
+  //     updatedUser.likes.filter(like => like.screamId !== scream.screamId);
+  //     this.setUser(updatedUser);
+  //     console.log("user successfully updated with unlikes", updatedUser);
+  //   });
+  // }
 
 
 }
