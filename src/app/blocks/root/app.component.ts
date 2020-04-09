@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
 import { UserService } from "@core/users/user.service";
 import { UserQueries } from "@core/users/user-queries";
+import { UserCredentials } from '@core/users/userCredentials';
 
 @Component({
   selector: "app-root",
@@ -16,7 +17,7 @@ import { UserQueries } from "@core/users/user-queries";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy, OnInit {
-  userCredentials$: Observable<any>;
+  userCredentials$: Observable<UserCredentials>;
   userSubcription: Subscription;
 
   constructor(

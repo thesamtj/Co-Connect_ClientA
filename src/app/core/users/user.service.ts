@@ -99,7 +99,7 @@ export class UserService {
 
   uploadImage(formData) {
     this.userStore.loadingUser();
-    
+
     return this.http.post<any>(`${this.apiUrl}user/image`, formData).pipe(
       switchMap(() => {
         return this.getUserData();
@@ -127,28 +127,5 @@ export class UserService {
   //   );
   // }
 
-  // likeScream(scream) {
-  //   this.user.subscribe(user => {
-  //     const likeScream = {
-  //       userHandle: user.userCredentials.handle,
-  //       screamId: scream.screamId
-  //     };
-  //     const updatedUser = user;
-  //     updatedUser.likes.push(likeScream);
-  //     console.log("The like updatedUser", updatedUser);
-  //     this.setUser(updatedUser);
-  //     console.log("user successfully updated with likes", updatedUser);
-  //   });
-  // }
-
-  // unlikeScream(scream) {
-  //   this.user.subscribe(user => {
-  //     const updatedUser = user;
-  //     updatedUser.likes.filter(like => like.screamId !== scream.screamId);
-  //     this.setUser(updatedUser);
-  //     console.log("user successfully updated with unlikes", updatedUser);
-  //   });
-  // }
-
-
+  
 }

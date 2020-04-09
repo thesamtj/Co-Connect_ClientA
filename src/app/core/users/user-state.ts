@@ -3,7 +3,7 @@ import { UserCredentials } from './userCredentials';
 export interface UserState {
   authenticated: boolean;
   loading: boolean;
-  userCredentials: {};
+  userCredentials: UserCredentials;
   likes: any[];
   notifications: any[];
 }
@@ -11,7 +11,16 @@ export interface UserState {
 export const initialState = {
   authenticated: false,
   loading: false,
-  userCredentials: {},
+  userCredentials: {
+    website: "",
+    handle: "",
+    userId: "",
+    email: "",
+    bio: "",
+    imageUrl: "",
+    createdAt: "",
+    location: ""
+  },
   likes: [],
   notifications: []
 };

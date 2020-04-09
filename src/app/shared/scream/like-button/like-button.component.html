@@ -1,15 +1,21 @@
-<button *ngIf="!(authenticated)" routerLink="/auth">
+<button *ngIf="!authenticated" routerLink="/auth">
   <mat-icon> favorite_border </mat-icon>
 </button>
 
-<button *ngIf="(authenticated) && (likedScream())" 
-mat-raised-button
-(click)="unlikeScream()">
-  <mat-icon> favorite </mat-icon>
-</button>
+<ng-container *ngIf="authenticated">
+  <button
+    *ngIf="likedScream()"
+    mat-raised-button
+    (click)="unlikeScream()"
+  >
+    <mat-icon> favorite </mat-icon>
+  </button>
 
-<button *ngIf="(authenticated) && !(likedScream())"
- mat-raised-button
-(click)="likeScream()">
-  <mat-icon> favorite_border </mat-icon>
-</button>
+  <button
+    *ngIf="!likedScream()"
+    mat-raised-button
+    (click)="likeScream()"
+  >
+    <mat-icon> favorite_border </mat-icon>
+  </button>
+</ng-container>

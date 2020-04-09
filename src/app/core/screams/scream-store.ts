@@ -20,16 +20,16 @@ export class ScreamStore extends Store<ScreamState> {
     this.setState(newState);
   }
 
-  setScream(screamToSet: import("./scream").Scream) {
-    console.log("[Scream] set Scream");
+  // setScream(screamToSet) {
+  //   console.log("[Scream] set Scream");
 
-    const newState = {
-      ...this.state,
-      scream: [].concat(this.state.scream, screamToSet)
-    };
+  //   const newState = {
+  //     ...this.state,
+  //     scream: [].concat(this.state.scream, screamToSet)
+  //   };
 
-    this.setState(newState);
-  }
+  //   this.setState(newState);
+  // }
 
   loadingData() {
     console.log("[Scream] loading data");
@@ -49,9 +49,9 @@ export class ScreamStore extends Store<ScreamState> {
       scream => scream.screamId === scream.screamId
     );
     this.state.screams[index] = scream;
-    if (this.state.scream. === scream.screamId) {
+    if (this.state.scream.screamId === scream.screamId) {
       this.state.scream = scream;
-    }
+    };
 
     const newState = {
       ...this.state
@@ -63,13 +63,13 @@ export class ScreamStore extends Store<ScreamState> {
   unlikeScream(scream) {
     console.log("[Unlike] loading");
 
-    let index = state.screams.findIndex(
-      scream => scream.screamId === action.payload.screamId
+    let index = this.state.screams.findIndex(
+      scream => scream.screamId === scream.screamId
     );
-    state.screams[index] = action.payload;
-    if (state.scream.screamId === action.payload.screamId) {
-      state.scream = action.payload;
-    }
+    this.state.screams[index] = scream;
+    if (this.state.scream.screamId === scream.screamId) {
+      this.state.scream = scream;
+    };
 
     const newState = {
       ...this.state

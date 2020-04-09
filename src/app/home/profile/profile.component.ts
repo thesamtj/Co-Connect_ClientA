@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
-import { AuthService } from "@core/auth/auth.service";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDetailsComponent } from '@shared/profile/edit-details/edit-details.component';
 import { UserService } from '@core/users/user.service';
 import { UserQueries } from '@core/users/user-queries';
+import { UserCredentials } from '@core/users/userCredentials';
 
 @Component({
   selector: "app-profile",
@@ -14,7 +14,7 @@ import { UserQueries } from '@core/users/user-queries';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
-  userCredentials$: Observable<any>;
+  userCredentials$: Observable<UserCredentials>;
   loading: boolean;
   authenticated: boolean;
 

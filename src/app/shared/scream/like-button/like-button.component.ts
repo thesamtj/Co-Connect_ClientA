@@ -1,22 +1,30 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Observable } from "rxjs";
-import { User } from "@core/users/user";
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy
+} from "@angular/core";
 import { AuthService } from "@core/auth/auth.service";
-import { ScreamDataService } from '@core/screams/scream-data.service';
-import { UserQueries } from '@core/users/user-queries';
+import { ScreamDataService } from "@core/screams/scream-data.service";
+import { UserQueries } from "@core/users/user-queries";
+import { ScreamService } from "@core/screams/scream.service";
 
 @Component({
   selector: "app-like-button",
   templateUrl: "./like-button.component.html",
-  styleUrls: ["./like-button.component.scss"]
+  styleUrls: ["./like-button.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LikeButtonComponent implements OnInit {
   @Input()
   screamId: string;
   likes: any[];
   authenticated: boolean;
+  iconName: string = "favorite_border";
 
-  constructor(private userQueries: UserQueries, private authService: AuthService, private screamDataService: ScreamDataService) {}
+  constructor(
+    private screamService: ScreamService,
+    private userQueries: UserQueries  ) {}
 
   ngOnInit() {
     this.userQueries.userState.subscribe(s => {
@@ -27,16 +35,30 @@ export class LikeButtonComponent implements OnInit {
   }
 
   likedScream() {
-    if (this.likes && this.likes.find(like => like.screamId === this.screamId))
+    if (
+      this.likes &&
+      this.likes.find(like => like.screamId === this.screamId)
+    ) {
       return true;
-    else return false;
+    } else {
+      return false;
+    }
   }
 
   likeScream() {
-    this.screamDataService.likeScream(this.screamId).subscribe(s => {this.authService.likeScream(s)}, e => console.log(e));
+    this.screamService.likeScream(this.screamId).subscribe(
+      s => {
+        console.log(s);
+      },
+      e => console.log(e)
+    );
   }
   unlikeScream() {
-    this.screamDataService.unlikeScream(this.screamId).subscribe(s => {this.authService.unlikeScream(s)}, e => console.log(e));
+    this.screamService.unlikeScream(this.screamId).subscribe(
+      s => {
+        console.log(s);
+      },
+      e => console.log(e)
+    );
   }
-
 }

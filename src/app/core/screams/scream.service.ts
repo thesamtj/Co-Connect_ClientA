@@ -5,6 +5,7 @@ import { Scream } from "./scream";
 import { switchMap, catchError } from "rxjs/operators";
 import { of, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { UserStore } from "@core/users/user-store";
 
 @Injectable({
   providedIn: "root"
@@ -16,6 +17,7 @@ export class ScreamService {
   constructor(
     private logService: LogService,
     private screamStore: ScreamStore,
+    private userStore: UserStore,
     private http: HttpClient
   ) {}
 
@@ -29,7 +31,7 @@ export class ScreamService {
         return of(screams);
       }),
       catchError(err => {
-        this.logService.log(`Server error occured`, err);
+        this.logService.log(`Server error occurred`, err);
         return throwError("Scream failed please contact admin");
       })
     );
@@ -39,12 +41,13 @@ export class ScreamService {
   likeScream(screamId) {
     return this.http.get<Scream>(`${this.apiUrl}scream/${screamId}/like`).pipe(
       switchMap(scream => {
+        this.screamStore.likeScream(scream);
+        this.userStore.likeScream(scream);
         console.log(`scream like loaded successfully`, scream);
-        this.screamStore.;
         return of(scream);
       }),
       catchError(err => {
-        this.logService.log(`Server error occured`, err);
+        this.logService.log(`Server error occurred`, err);
         return throwError("Scream failed please contact admin");
       })
     );
@@ -54,18 +57,14 @@ export class ScreamService {
     return this.http
       .get<Scream>(`${this.apiUrl}scream/${screamId}/unlike`)
       .pipe(
-        switchMap((scream: Scream) => {
+        switchMap(scream => {
+          this.screamStore.unlikeScream(scream);
+          this.userStore.unlikeScream(scream);
           console.log(`scream like loaded successfully`, scream);
-          this.screams.subscribe(screams => {
-            let index = screams.findIndex(
-              scream => scream.screamId === scream.screamId
-            );
-            screams[index] = scream;
-          });
           return of(scream);
         }),
         catchError(err => {
-          this.logService.log(`Server error occured`, err);
+          this.logService.log(`Server error occurred`, err);
           return throwError("Scream failed please contact admin");
         })
       );

@@ -47,5 +47,33 @@ export class UserStore extends Store<UserState> {
     this.setState(newState);
   }
 
-  
+  likeScream(scream) {
+    console.log("[UserLike] loading");
+
+    const newState = {
+      ...this.state,
+      likes: [
+        ...this.state.likes,
+        {
+          userHandle: this.state.userCredentials.handle,
+          screamId: scream.screamId
+        }
+      ]
+    };
+
+    this.setState(newState);
+  }
+
+  unlikeScream(scream) {
+    console.log("[UserUnlike] loading");
+
+    const newState = {
+        ...this.state,
+        likes: this.state.likes.filter(
+          like => like.screamId !== scream.screamId
+        )
+    };
+
+    this.setState(newState);
+  }
 }
