@@ -6,6 +6,7 @@ import {
 } from "@angular/core";
 import { AuthService } from "@core/auth/auth.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { UserService } from '@core/users/user.service';
 
 interface EditDetailsData {
   website: string;
@@ -27,7 +28,8 @@ export class EditDetailsComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) data: EditDetailsData,
     private matDialogRef: MatDialogRef<EditDetailsComponent>,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
     this.bio = data.bio ? data.bio : "";
     this.website = data.website ? data.website : "";
@@ -48,14 +50,14 @@ export class EditDetailsComponent implements OnInit {
       website: this.website,
       location: this.location
     };
-    this.authService
-      .editUserDetails(userDetails)
-      .subscribe( s => {
-       this.closeDialog();
+    this.userService.editUserDetails(userDetails).subscribe(
+      s => {
+        this.closeDialog();
       },
       e => {
         console.log(e);
-      });
+      }
+    );
   }
 
   private closeDialog() {
