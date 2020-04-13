@@ -9,6 +9,7 @@ import {
 import { UserCredentials } from "@core/users/userCredentials";
 import { MatDialog } from '@angular/material/dialog';
 import { PostScreamComponent } from '@shared/scream/post-scream/post-scream.component';
+import { UserQueries } from '@core/users/user-queries';
 
 @Component({
   selector: "app-header",
@@ -19,13 +20,19 @@ import { PostScreamComponent } from '@shared/scream/post-scream/post-scream.comp
 export class HeaderComponent implements OnInit {
   @Input()
   user: UserCredentials;
+  authenticated: boolean;
 
   @Output()
   logoutEvent = new EventEmitter<any>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private userQueries: UserQueries, private dialog: MatDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userQueries.userState.subscribe(u => {
+      this.authenticated = u.authenticated;
+      console.log("Navbar state loading: ", this.authenticated);
+    });
+  }
 
   openPost() {
     this.dialog.open(PostScreamComponent, {
@@ -34,7 +41,7 @@ export class HeaderComponent implements OnInit {
       },
       width: "400px",
       height: "200px",
-      disableClose: true
+      disableClose: false
     });
     
   }
