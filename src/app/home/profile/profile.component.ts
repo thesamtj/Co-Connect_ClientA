@@ -21,9 +21,9 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService, private userQueries: UserQueries, private router: Router, private matDialog: MatDialog) {}
 
   ngOnInit() {
-    this.userQueries.userState.subscribe(s => {
-      this.loading = s.loading;
-      this.authenticated = s.authenticated;
+    this.userQueries.userState.subscribe(u => {
+      this.loading = u.loading;
+      this.authenticated = u.authenticated;
       console.log("Profile user state loading: ", this.loading);
     });
     this.userCredentials$ = this.userQueries.user;

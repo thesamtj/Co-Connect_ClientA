@@ -4,6 +4,7 @@ import { ScreamState, initialState } from "./scream-state";
 
 @Injectable({ providedIn: "root" })
 export class ScreamStore extends Store<ScreamState> {
+  
   constructor() {
     super(initialState);
   }
@@ -75,6 +76,18 @@ export class ScreamStore extends Store<ScreamState> {
       ...this.state
     };
 
+    this.setState(newState);
+  }
+
+  deleteScream(screamId) {
+    let index = this.state.screams.findIndex(
+      (scream) => scream.screamId === screamId
+    );
+    this.state.screams.splice(index, 1);
+
+    const newState = {
+      ...this.state
+    };
     this.setState(newState);
   }
 

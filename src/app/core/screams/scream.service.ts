@@ -70,6 +70,23 @@ export class ScreamService {
       );
   }
 
+  // Delete a scream
+  deleteScream(screamId) {
+    return this.http
+      .delete(`${this.apiUrl}scream/${screamId}`)
+      .pipe(
+        switchMap(() => {
+          this.screamStore.deleteScream(screamId);
+          console.log(`scream deleted successfully`);
+          return of("successfully deleted");
+        }),
+        catchError(err => {
+          this.logService.log(`Server error occurred`, err);
+          return throwError("Scream failed please contact admin");
+        })
+      );
+  }
+
   // updateScream(screamToUpdate: Scream) {
   //   screamToUpdate = {
   //     ...screamToUpdate,

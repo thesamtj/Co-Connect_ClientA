@@ -4,9 +4,9 @@ import {
   ChangeDetectionStrategy,
   Inject
 } from "@angular/core";
-import { AuthService } from "@core/auth/auth.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UserService } from '@core/users/user.service';
+import { UserQueries } from '@core/users/user-queries';
 
 interface EditDetailsData {
   website: string;
@@ -24,12 +24,13 @@ export class EditDetailsComponent implements OnInit {
   bio: string;
   website: string;
   location: string;
+  loading: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: EditDetailsData,
     private matDialogRef: MatDialogRef<EditDetailsComponent>,
-    private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private userQueries: UserQueries
   ) {
     this.bio = data.bio ? data.bio : "";
     this.website = data.website ? data.website : "";
@@ -42,7 +43,12 @@ export class EditDetailsComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userQueries.userState.subscribe(u => {
+      this.loading = u.loading;
+      console.log("EditDetails user state loading: ", this.loading);
+    });
+  }
 
   handleSubmit() {
     const userDetails = {
@@ -51,16 +57,16 @@ export class EditDetailsComponent implements OnInit {
       location: this.location
     };
     this.userService.editUserDetails(userDetails).subscribe(
-      s => {
+      (u) => {
         this.closeDialog();
       },
       e => {
-        console.log(e);
+        this.closeDialog();
       }
     );
   }
 
   private closeDialog() {
-    this.matDialogRef.close("Thanks for using me!");
+    this.matDialogRef.close(true);
   }
 }
