@@ -32,6 +32,17 @@ export class ScreamStore extends Store<ScreamState> {
   //   this.setState(newState);
   // }
 
+  postScream(scream) {
+    console.log("[Scream Post] loading data");
+
+    const newState = {
+      ...this.state,
+      screams: [scream, ...this.state.screams]
+    };
+
+    this.setState(newState);
+  }
+  
   loadingData() {
     console.log("[Scream] loading data");
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { UserService } from '@core/users/user.service';
 import { ScreamService } from '@core/screams/scream.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class ConfirmationDialogComponent implements OnInit {
   screamId: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) data: any,
     private screamService: ScreamService,
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>
   ) {
@@ -33,10 +32,10 @@ export class ConfirmationDialogComponent implements OnInit {
 
   onConfirmClick(): void {
     this.screamService.deleteScream(this.screamId).subscribe(
-      (s) => {
+      () => {
         this.closeDialog();
       },
-      e => {
+      () => {
         this.closeDialog();
       }
     );

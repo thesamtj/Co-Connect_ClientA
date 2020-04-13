@@ -14,7 +14,7 @@
 
 
       <div *ngIf="(user)" fxShow="true" fxHide.lt-md="true">
-        <a mat-button routerLink="/home" routerLinkActive="active-link"
+        <a mat-button (click)="openPost()"
           ><mat-icon>add</mat-icon>
         </a>
       </div>

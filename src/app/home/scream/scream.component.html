@@ -9,7 +9,6 @@
     </ng-container> -->
     <button
       mat-raised-button
-      color="primary"
       *ngIf="authenticated && scream.userHandle === handle"
       (click)="openDialog(scream.screamId)" 
     >

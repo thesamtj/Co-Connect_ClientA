@@ -21,6 +21,21 @@ export class ScreamService {
     private http: HttpClient
   ) {}
 
+   // Post a scream
+  postScream(screamBody) {
+    return this.http.post(`${this.apiUrl}scream`, screamBody).pipe(
+      switchMap(scream => {
+        this.screamStore.postScream(scream);
+        console.log(`scream posted successfully`, scream);
+        return of(scream);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occurred`, err);
+        return throwError("Scream failed please contact admin");
+      })
+    );
+  }
+
   getScreams() {
     this.screamStore.loadingData();
 

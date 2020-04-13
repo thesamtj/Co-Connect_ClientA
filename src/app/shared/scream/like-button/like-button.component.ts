@@ -4,8 +4,6 @@ import {
   Input,
   ChangeDetectionStrategy
 } from "@angular/core";
-import { AuthService } from "@core/auth/auth.service";
-import { ScreamDataService } from "@core/screams/scream-data.service";
 import { UserQueries } from "@core/users/user-queries";
 import { ScreamService } from "@core/screams/scream.service";
 

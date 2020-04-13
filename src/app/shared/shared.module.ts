@@ -31,8 +31,9 @@ import { PostScreamComponent } from './scream/post-scream/post-scream.component'
     FlexLayoutModule,
     EditDetailsComponent,
     LikeButtonComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    PostScreamComponent
   ],
-  entryComponents: [EditDetailsComponent, ConfirmationDialogComponent]
+  entryComponents: [EditDetailsComponent, ConfirmationDialogComponent, PostScreamComponent]
 })
 export class SharedModule {}
