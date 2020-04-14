@@ -9,6 +9,8 @@ import { LikeButtonComponent } from "./scream/like-button/like-button.component"
 import { ConfirmationDialogComponent } from "./scream/confirmation-dialog/confirmation-dialog.component";
 import { PostScreamComponent } from './scream/post-scream/post-scream.component';
 import { ScreamDialogComponent } from './scream/scream-dialog/scream-dialog.component';
+import { CommentsComponent } from './scream/comments/comments.component';
+import { CommentFormComponent } from './scream/comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ScreamDialogComponent } from './scream/scream-dialog/scream-dialog.comp
     LikeButtonComponent,
     ConfirmationDialogComponent,
     PostScreamComponent,
-    ScreamDialogComponent
+    ScreamDialogComponent,
+    CommentsComponent,
+    CommentFormComponent
   ],
   imports: [
     CommonModule,

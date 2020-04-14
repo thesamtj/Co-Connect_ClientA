@@ -13,7 +13,7 @@ import { ScreamService } from "@core/screams/scream.service";
   selector: "app-scream",
   templateUrl: "./scream.component.html",
   styleUrls: ["./scream.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScreamComponent implements OnInit {
   loading: boolean;

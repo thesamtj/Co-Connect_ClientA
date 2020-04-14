@@ -33,12 +33,7 @@
       <span> {{ commentCount }} Comments </span>
     </div>
     <div class="pm-dialog-row">
-      <app-like-button [screamId]="screamId"></app-like-button>
-      <span> {{ likeCount }} Likes </span>
-      <button mat-raised-button color="primary">
-        <mat-icon> chat </mat-icon>
-      </button>
-      <span> {{ commentCount }} Comments </span>
+      <app-comments [comments]="comments"></app-comments>
     </div>
   </div>
 </div>
