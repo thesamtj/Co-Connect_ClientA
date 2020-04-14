@@ -15,7 +15,8 @@ export const initialState = {
     createdAt: "",
     commentCount: 0,
     likeCount: 0,
-    userImage: ""
+    userImage: "",
+    comments: []
   },
   loading: false
 };

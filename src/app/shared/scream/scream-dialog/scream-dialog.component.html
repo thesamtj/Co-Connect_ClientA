@@ -1,0 +1,44 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div mat-dialog-container class="example-card">
+  <h3 mat-dialog-title>@{{ userHandle }}</h3>
+  <div class="card-image">
+    <img mat-card-image [src]="userImage" />
+  </div>
+  <div mat-dialog-content>
+    <div class="pm-dialog-row">
+      <div>
+        <span>
+          {{ createdAt }}
+        </span>
+        <hr />
+      </div>
+      <div>
+        <span>{{ body }} </span>
+        <hr />
+      </div>
+
+      <!-- <div >
+        <mat-icon>link</mat-icon>
+        <span>{commentCount} comments </span>
+        <hr />
+      </div> -->
+    </div>
+    <div class="pm-dialog-row">
+      <app-like-button [screamId]="screamId"></app-like-button>
+      <span> {{ likeCount }} Likes </span>
+      <button mat-raised-button color="primary">
+        <mat-icon> chat </mat-icon>
+      </button>
+      <span> {{ commentCount }} Comments </span>
+    </div>
+    <div class="pm-dialog-row">
+      <app-like-button [screamId]="screamId"></app-like-button>
+      <span> {{ likeCount }} Likes </span>
+      <button mat-raised-button color="primary">
+        <mat-icon> chat </mat-icon>
+      </button>
+      <span> {{ commentCount }} Comments </span>
+    </div>
+  </div>
+</div>

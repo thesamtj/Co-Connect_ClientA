@@ -36,6 +36,7 @@ export class ScreamService {
     );
   }
 
+  // get screams
   getScreams() {
     this.screamStore.loadingData();
 
@@ -44,6 +45,21 @@ export class ScreamService {
         this.screamStore.setScreams(screams);
         console.log(`screams loaded successfully`, screams);
         return of(screams);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occurred`, err);
+        return throwError("Scream failed please contact admin");
+      })
+    );
+  }
+
+  // get a scream
+  getScream(screamId) {
+    return this.http.get(`${this.apiUrl}scream/${screamId}`).pipe(
+      switchMap(scream => {
+        this.screamStore.setScream(scream);
+        console.log(`Scream loaded successfully`, scream);
+        return of(scream);
       }),
       catchError(err => {
         this.logService.log(`Server error occurred`, err);

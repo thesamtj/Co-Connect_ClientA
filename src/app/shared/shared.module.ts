@@ -8,13 +8,15 @@ import { EditDetailsComponent } from "./profile/edit-details/edit-details.compon
 import { LikeButtonComponent } from "./scream/like-button/like-button.component";
 import { ConfirmationDialogComponent } from "./scream/confirmation-dialog/confirmation-dialog.component";
 import { PostScreamComponent } from './scream/post-scream/post-scream.component';
+import { ScreamDialogComponent } from './scream/scream-dialog/scream-dialog.component';
 
 @NgModule({
   declarations: [
     EditDetailsComponent,
     LikeButtonComponent,
     ConfirmationDialogComponent,
-    PostScreamComponent
+    PostScreamComponent,
+    ScreamDialogComponent
   ],
   imports: [
     CommonModule,
@@ -32,8 +34,9 @@ import { PostScreamComponent } from './scream/post-scream/post-scream.component'
     EditDetailsComponent,
     LikeButtonComponent,
     ConfirmationDialogComponent,
-    PostScreamComponent
+    PostScreamComponent,
+    ScreamDialogComponent
   ],
-  entryComponents: [EditDetailsComponent, ConfirmationDialogComponent, PostScreamComponent]
+  entryComponents: [EditDetailsComponent, ConfirmationDialogComponent, PostScreamComponent, ScreamDialogComponent]
 })
 export class SharedModule {}

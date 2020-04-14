@@ -5,5 +5,6 @@ export interface Scream {
     createdAt: string,
     commentCount: number,
     likeCount: number,
-    userImage: string
+    userImage: string,
+    comments?: any[]
 }

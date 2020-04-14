@@ -6,7 +6,6 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScreamQueries {
-  
   constructor(private screamStore: ScreamStore) { }
 
   get screamState() {

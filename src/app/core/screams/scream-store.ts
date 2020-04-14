@@ -10,7 +10,7 @@ export class ScreamStore extends Store<ScreamState> {
   }
 
   setScreams(screamsToSet) {
-    console.log("[Scream] set Screams");
+    console.log("[Screams] set Screams");
 
     const newState = {
       ...this.state,
@@ -21,16 +21,16 @@ export class ScreamStore extends Store<ScreamState> {
     this.setState(newState);
   }
 
-  // setScream(screamToSet) {
-  //   console.log("[Scream] set Scream");
+  setScream(screamToSet) {
+    console.log("[Scream] set Scream");
 
-  //   const newState = {
-  //     ...this.state,
-  //     scream: [].concat(this.state.scream, screamToSet)
-  //   };
+    const newState = {
+      ...this.state,
+      scream: screamToSet
+    };
 
-  //   this.setState(newState);
-  // }
+    this.setState(newState);
+  }
 
   postScream(scream) {
     console.log("[Scream Post] loading data");

@@ -4,13 +4,11 @@
   <mat-card-header>
     <mat-card-title>{{ scream.userHandle }}</mat-card-title>
     <mat-card-subtitle>{{ scream.createdAt }}</mat-card-subtitle>
-    <!-- <ng-container *ngIf="authenticated && userHandle === handle">
-      <app-delete-button [screamId]="scream.screamId"></app-delete-button>
-    </ng-container> -->
+
     <button
       mat-raised-button
       *ngIf="authenticated && scream.userHandle === handle"
-      (click)="openDialog(scream.screamId)" 
+      (click)="deleteDialog(scream.screamId)"
     >
       <mat-icon> delete </mat-icon>
     </button>
@@ -27,5 +25,11 @@
       <mat-icon> chat </mat-icon>
     </button>
     <span> {{ scream.commentCount }} Comments </span>
+    <button
+      mat-raised-button
+      (click)="screamDialog(scream.screamId, scream.userHandle)"
+    >
+      <mat-icon> unfold_more </mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>
