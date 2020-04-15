@@ -1,6 +1,6 @@
 <mat-card *ngFor="let comment of comments" class="example-card">
 	<mat-card-header>
-		<div mat-card-image [src]="comment.commentImage"></div>
+		<div mat-card-image [src]="comment.userImage"></div>
 		<mat-card-title>{{ comment.userHandle }}</mat-card-title>
 		<mat-card-subtitle>{{ comment.createdAt }}</mat-card-subtitle>
     </mat-card-header>

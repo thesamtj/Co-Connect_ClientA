@@ -102,6 +102,20 @@ export class ScreamStore extends Store<ScreamState> {
     this.setState(newState);
   }
 
+  submitComment(comment) {
+    console.log("[Comment] loading comment");
+
+    const newState = {
+      ...this.state,
+      scream: {
+        ...this.state.scream,
+        comments: [comment, ...this.state.scream.comments]
+      }
+    };
+
+    this.setState(newState);
+  }
+
   // clearScream() {
   //   console.log("[Scream] Clear Scream");
 

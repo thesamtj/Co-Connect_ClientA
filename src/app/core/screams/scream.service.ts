@@ -118,6 +118,20 @@ export class ScreamService {
       );
   }
 
+  // // Submit a comment
+  submitComment(screamId, commentData) {
+    return this.http.post(`${this.apiUrl}scream/${screamId}/comment`, commentData).pipe(
+      switchMap(comment => {
+        this.screamStore.submitComment(comment);
+        console.log(`Comment made successfully`, comment);
+        return of(comment);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occurred`, err);
+        return throwError("Scream failed please contact admin");
+      })
+    );
+  }
   // updateScream(screamToUpdate: Scream) {
   //   screamToUpdate = {
   //     ...screamToUpdate,

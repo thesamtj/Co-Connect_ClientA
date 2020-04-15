@@ -33,6 +33,7 @@
       <span> {{ commentCount }} Comments </span>
     </div>
     <div class="pm-dialog-row">
+      <app-comment-form [screamId]="screamId"></app-comment-form>
       <app-comments [comments]="comments"></app-comments>
     </div>
   </div>

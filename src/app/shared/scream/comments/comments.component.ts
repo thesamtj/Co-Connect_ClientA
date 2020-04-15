@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from "@angular/core
 })
 export class CommentsComponent implements OnInit {
   @Input()
-  comments$: any[];
+  comments: any[];
 
   constructor() {}
 

@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EditDetailsComponent } from "./profile/edit-details/edit-details.component";
 import { LikeButtonComponent } from "./scream/like-button/like-button.component";
 import { ConfirmationDialogComponent } from "./scream/confirmation-dialog/confirmation-dialog.component";
-import { PostScreamComponent } from './scream/post-scream/post-scream.component';
-import { ScreamDialogComponent } from './scream/scream-dialog/scream-dialog.component';
-import { CommentsComponent } from './scream/comments/comments.component';
-import { CommentFormComponent } from './scream/comment-form/comment-form.component';
+import { PostScreamComponent } from "./scream/post-scream/post-scream.component";
+import { ScreamDialogComponent } from "./scream/scream-dialog/scream-dialog.component";
+import { CommentsComponent } from "./scream/comments/comments.component";
+import { CommentFormComponent } from "./scream/comment-form/comment-form.component";
 
 @NgModule({
   declarations: [
@@ -20,14 +20,14 @@ import { CommentFormComponent } from './scream/comment-form/comment-form.compone
     PostScreamComponent,
     ScreamDialogComponent,
     CommentsComponent,
-    CommentFormComponent
+    CommentFormComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     PmMaterialModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   exports: [
     PmMaterialModule,
@@ -39,8 +39,15 @@ import { CommentFormComponent } from './scream/comment-form/comment-form.compone
     LikeButtonComponent,
     ConfirmationDialogComponent,
     PostScreamComponent,
-    ScreamDialogComponent
+    ScreamDialogComponent,
+    CommentsComponent,
+    CommentFormComponent
   ],
-  entryComponents: [EditDetailsComponent, ConfirmationDialogComponent, PostScreamComponent, ScreamDialogComponent]
+  entryComponents: [
+    EditDetailsComponent,
+    ConfirmationDialogComponent,
+    PostScreamComponent,
+    ScreamDialogComponent,
+  ],
 })
 export class SharedModule {}
