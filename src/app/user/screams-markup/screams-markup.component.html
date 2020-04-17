@@ -1,17 +1,11 @@
 <p *ngIf="loading">Scream loading...</p>
 
+<p *ngIf="!loading && (screams$ | async) === null">No screams from this user</p>
+
 <mat-card class="example-card" *ngFor="let scream of screams$ | async">
   <mat-card-header>
-    <mat-card-title><a [routerLink]="['/users', (scream.userHandle)]">@{{ scream.userHandle }}</a></mat-card-title>
+    <mat-card-title>{{ scream.userHandle }}</mat-card-title>
     <mat-card-subtitle>{{ scream.createdAt }}</mat-card-subtitle>
-
-    <button
-      mat-raised-button
-      *ngIf="authenticated && scream.userHandle === handle"
-      (click)="deleteDialog(scream.screamId)"
-    >
-      <mat-icon> delete </mat-icon>
-    </button>
   </mat-card-header>
   <mat-card-content>
     <p>
@@ -25,11 +19,11 @@
       <mat-icon> chat </mat-icon>
     </button>
     <span> {{ scream.commentCount }} Comments </span>
-    <button
-      mat-raised-button
-      (click)="screamDialog(scream.screamId, scream.userHandle)"
-    >
-      <mat-icon> unfold_more </mat-icon>
-    </button>
+    <!-- <button
+            mat-raised-button
+            (click)="screamDialog(scream.screamId, scream.userHandle)"
+          >
+            <mat-icon> unfold_more </mat-icon>
+          </button> -->
   </mat-card-actions>
 </mat-card>

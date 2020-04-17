@@ -1,0 +1,53 @@
+<mat-card class="example-card" *ngIf="user === null">
+  <mat-card-content>
+    <p>Profile Skeleton...</p>
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card class="example-card" *ngIf="user">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title><a [routerLink]="['/users', ((userCredentials$).handle)]"> @{{ (userCredentials$).handle }}</a></mat-card-title>
+    <mat-card-subtitle>{{
+      (userCredentials$).handle
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="card-image">
+    <img mat-card-image [src]="(userCredentials$).imageUrl" />
+  </div>
+  <mat-card-content>
+    <div *ngIf="(userCredentials$).bio">
+      <span>
+        {{ (userCredentials$).bio }}
+      </span>
+      <hr />
+    </div>
+    <div *ngIf="(userCredentials$).location">
+      <mat-icon>location_on</mat-icon>
+      <span class="user-detail"
+        >{{ (userCredentials$).location }}
+      </span>
+      <hr />
+    </div>
+    <div *ngIf="(userCredentials$).website">
+      <a
+        [href]="(userCredentials$).website"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <mat-icon>link</mat-icon>
+        <span class="user-detail"
+          >{{ (userCredentials$).website }}
+        </span></a
+      >
+      <hr />
+    </div>
+    <div *ngIf="(userCredentials$).createdAt">
+      <mat-icon>calendar_today</mat-icon>
+      <span class="user-detail"
+        >{{ (userCredentials$).createdAt }}
+      </span>
+    </div>
+  </mat-card-content>
+</mat-card>

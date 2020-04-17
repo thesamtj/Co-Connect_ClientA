@@ -11,9 +11,7 @@ import { ScreamQueries } from "@core/screams/scream-queries";
 export class HomeComponent implements OnInit {
 
   constructor(
-    private screamService: ScreamService,
-    private screamQueries: ScreamQueries
-  ) {}
+    private screamService: ScreamService  ) {}
 
   ngOnInit() {
     this.screamService.getScreams().subscribe(screams => {

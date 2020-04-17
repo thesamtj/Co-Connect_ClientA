@@ -1,0 +1,13 @@
+<div class="sc-container">
+    <mat-card class="sc-items">
+      <mat-card-content>
+        <app-screams-markup></app-screams-markup>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="sc-summary">
+      <mat-card-content>
+        <app-profile-markup [user]="(user$ | async)"></app-profile-markup>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

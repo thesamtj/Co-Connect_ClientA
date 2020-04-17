@@ -19,7 +19,6 @@ import { CoreModule } from "./core/core.module";
     CoreModule,
     BlocksModule
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule {}

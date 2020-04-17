@@ -1,0 +1,37 @@
+
+$iconWidth: 50px;
+
+.sc-container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  margin: 20px auto 0 auto;
+  width: 60%;
+}
+
+.sc-items {
+  flex: 0 1 auto;
+  width: 70%;
+  margin: 0.3em;
+}
+
+.sc-summary {
+  flex: 0 1 auto;
+  width: 30%;
+  margin: 0.3em;
+}
+
+@media all and(max-width:800px) {
+  .sc-container {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .sc-items {
+    width: 90%;
+  }
+
+  .sc-summary {
+    width: 90%;
+  }
+}

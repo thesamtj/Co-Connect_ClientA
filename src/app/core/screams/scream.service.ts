@@ -132,6 +132,25 @@ export class ScreamService {
       })
     );
   }
+
+  // get single user
+  getUserData(userHandle) {
+    this.screamStore.loadingData();
+
+    return this.http.get<any>(`${this.apiUrl}user/${userHandle}`).pipe(
+      switchMap(({user, screams}) => {
+        this.screamStore.setScreams(screams);
+        console.log(`screams loaded successfully`, screams);
+        return of(user);
+      }),
+      catchError(err => {
+        this.screamStore.setScreams(null);
+        this.logService.log(`Server error occurred`, err);
+        return throwError(null);
+      })
+    );
+  }
+
   // updateScream(screamToUpdate: Scream) {
   //   screamToUpdate = {
   //     ...screamToUpdate,
