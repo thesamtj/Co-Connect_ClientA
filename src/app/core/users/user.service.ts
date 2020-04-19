@@ -128,4 +128,18 @@ export class UserService {
       })
     );
   }
+
+  markNotificationsRead(notificationIds) {
+    return this.http.post<any>(`${this.apiUrl}notifications`, notificationIds).pipe(
+      switchMap((not) => {
+        this.userStore.markNotificationsRead();
+        return of(not);
+      }),
+      catchError(err => {
+        this.logService.log(`Server error occured`, err);
+        return throwError("Notification read failed");
+      })
+    );
+  }
+
 }

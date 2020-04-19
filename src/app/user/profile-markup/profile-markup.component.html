@@ -8,45 +8,45 @@
 <mat-card class="example-card" *ngIf="user">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title><a [routerLink]="['/users', ((userCredentials$).handle)]"> @{{ (userCredentials$).handle }}</a></mat-card-title>
+    <mat-card-title><a [routerLink]="['/users', (user.handle)]"> @{{ user.handle }}</a></mat-card-title>
     <mat-card-subtitle>{{
-      (userCredentials$).handle
+      user.handle
     }}</mat-card-subtitle>
   </mat-card-header>
   <div class="card-image">
-    <img mat-card-image [src]="(userCredentials$).imageUrl" />
+    <img mat-card-image [src]="user.imageUrl" />
   </div>
   <mat-card-content>
-    <div *ngIf="(userCredentials$).bio">
+    <div *ngIf="user.bio">
       <span>
-        {{ (userCredentials$).bio }}
+        {{ user.bio }}
       </span>
       <hr />
     </div>
-    <div *ngIf="(userCredentials$).location">
+    <div *ngIf="user.location">
       <mat-icon>location_on</mat-icon>
       <span class="user-detail"
-        >{{ (userCredentials$).location }}
+        >{{ user.location }}
       </span>
       <hr />
     </div>
-    <div *ngIf="(userCredentials$).website">
+    <div *ngIf="user.website">
       <a
-        [href]="(userCredentials$).website"
+        [href]="user.website"
         target="_blank"
         rel="noopener noreferrer"
       >
         <mat-icon>link</mat-icon>
         <span class="user-detail"
-          >{{ (userCredentials$).website }}
+          >{{ user.website }}
         </span></a
       >
       <hr />
     </div>
-    <div *ngIf="(userCredentials$).createdAt">
+    <div *ngIf="user.createdAt">
       <mat-icon>calendar_today</mat-icon>
       <span class="user-detail"
-        >{{ (userCredentials$).createdAt }}
+        >{{ user.createdAt }}
       </span>
     </div>
   </mat-card-content>

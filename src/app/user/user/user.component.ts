@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
         this.handle = params.handle;
         this.screamService.getUserData(params.handle).subscribe((user) => {
           this.user$ = user;
-          console.log(`Static User; ${user}`);
+          console.log(`Static1 User; ${user.handle}`);
         },
         (e) => {
           this.user$ = e;

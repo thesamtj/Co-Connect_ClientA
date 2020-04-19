@@ -11,6 +11,9 @@ import { PostScreamComponent } from "./scream/post-scream/post-scream.component"
 import { ScreamDialogComponent } from "./scream/scream-dialog/scream-dialog.component";
 import { CommentsComponent } from "./scream/comments/comments.component";
 import { CommentFormComponent } from "./scream/comment-form/comment-form.component";
+import { NotificationsComponent } from './notification/notifications/notifications.component';
+import { ScreamSkeletonComponent } from './scream/scream-skeleton/scream-skeleton.component';
+import { ProfileSkeletonComponent } from './profile/profile-skeleton/profile-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { CommentFormComponent } from "./scream/comment-form/comment-form.compone
     ScreamDialogComponent,
     CommentsComponent,
     CommentFormComponent,
+    NotificationsComponent,
+    ScreamSkeletonComponent,
+    ProfileSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +47,8 @@ import { CommentFormComponent } from "./scream/comment-form/comment-form.compone
     PostScreamComponent,
     ScreamDialogComponent,
     CommentsComponent,
-    CommentFormComponent
+    CommentFormComponent,
+    NotificationsComponent
   ],
   entryComponents: [
     EditDetailsComponent,

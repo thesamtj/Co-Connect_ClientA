@@ -76,4 +76,16 @@ export class UserStore extends Store<UserState> {
 
     this.setState(newState);
   }
+
+  markNotificationsRead() {
+    console.log("[Notifications] set to read");
+
+    this.state.notifications.forEach(not => (not.read = true));
+    const newState = {
+      ...this.state 
+    };
+    
+    this.setState(newState);
+  }
+
 }

@@ -1,0 +1,33 @@
+<ng-container>
+  <a [matMenuTriggerFor]="menu" mat-button
+    ><mat-icon
+      [matBadge]="notItemCount"
+      matBadgeColor="accent"
+      (click)="onMenuOpened()"
+      >{{ notificationsIcon }}</mat-icon
+    >
+  </a>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>You have no notifications yet</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #menu="matMenu" *ngIf="notifications && notifications.length > 0">
+    <button
+      mat-menu-item
+      *ngFor="let not of notifications"
+    >
+      <ng-container *ngIf="not.type === like">
+        <mat-icon>favorite</mat-icon>
+        <span>{{ not.sender }} liked your scream</span>
+      </ng-container>
+      <ng-container *ngIf="not.type !== like">
+        <mat-icon>chat</mat-icon>
+        <span>{{ not.sender }} commented on your scream</span>
+      </ng-container>
+    </button>
+  </mat-menu>
+</ng-container>
