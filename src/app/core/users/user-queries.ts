@@ -33,4 +33,11 @@ export class UserQueries {
       );
     }
   
+    get loading() {
+      return this.userState.pipe(
+        distinctUntilChanged(),
+        map(s => s.loading)
+      );
+    }
+
 }
