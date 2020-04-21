@@ -34,7 +34,7 @@ export class UserService {
       }),
       catchError(err => {
         if (err.name === "HttpErrorResponse") {
-          err = "No or poor Network...check your data connection"
+          err = "Poor or No Network...check your data connection"
         }
 
         this.uiStore.setErrors(err);
@@ -56,7 +56,7 @@ export class UserService {
       }),
       catchError(err => {
         if (err.name === "HttpErrorResponse") {
-          err = "No or poor Network...check your data connection"
+          err = "Poor or No Network...check your data connection"
         }
           
         this.uiStore.setErrors(err);
