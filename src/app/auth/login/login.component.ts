@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
 import { UserService } from "@core/users/user.service";
-import { UserQueries } from '@core/users/user-queries';
+import { UIQueries } from '@core/ui/ui-queries';
 
 @Component({
   selector: "app-login",
@@ -13,33 +13,29 @@ import { UserQueries } from '@core/users/user-queries';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
-  loading: boolean;
-  error: BehaviorSubject<string>;
+  loading$: Observable<boolean>;
+  error$: Observable<string>;
 
-  constructor(private router: Router, private userService: UserService, private userQueries: UserQueries) {}
+  constructor(private router: Router, private userService: UserService, private uiQueries: UIQueries) {}
 
   ngOnInit() {
-    this.error = new BehaviorSubject("");
-    this.userQueries.userState.subscribe(s => {
-      this.loading = s.loading;
-      console.log("login user state loading: ", this.loading);
-    });
+      this.loading$ = this.uiQueries.loading;
+      this.error$ = this.uiQueries.errors;
+      console.log("Login ui state loading: ", this.loading$);
+   
   }
 
   login() {
-    this.setError("");
-    this.loading = true;
+    // this.setError("");
     this.userService.login(this.email, this.password).subscribe(
       () => {
         this.router.navigate([""]);
       },
-      e => {
-        this.setError(e);
+      (e) => {
+        console.log(e);
       }
     );
   }
 
-  private setError(msg: any) {
-    return this.error.next(msg);
-  }
+  
 }

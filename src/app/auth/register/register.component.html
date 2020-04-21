@@ -99,11 +99,11 @@
         </tr>
         <tr>
           <td>
-            <mat-error *ngIf="error">{{ error | async }}</mat-error>
+            <mat-error *ngIf="error$">{{ error$ | async }}</mat-error>
           </td>
         </tr>
       </table>
-      <mat-spinner *ngIf="loading"></mat-spinner>
+      <mat-spinner *ngIf="(loading$ | async)"></mat-spinner>
     </form>
   </mat-card-content>
   <mat-card-actions>

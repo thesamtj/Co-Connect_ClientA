@@ -3,18 +3,18 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
-import { UserService } from '@core/users/user.service';
-import { UserQueries } from '@core/users/user-queries';
+import { Observable } from "rxjs";
+import { UserService } from "@core/users/user.service";
+import { UIQueries } from '@core/ui/ui-queries';
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
   userForm: FormGroup;
@@ -22,35 +22,33 @@ export class RegisterComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   handle: string = "";
-  loading: boolean;
-  error: BehaviorSubject<string>;
+  loading$: Observable<boolean>;
+  error$: Observable<string>;
 
   constructor(
     private router: Router,
-    private userService: UserService, private userQueries: UserQueries,
+    private userService: UserService,
+    private uiQueries: UIQueries,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.error = new BehaviorSubject("");
-
-    this.userQueries.userState.subscribe(s => {
-      this.loading = s.loading;
-      console.log("Register user state loading: ", this.loading);
-    });
-
+    this.loading$ = this.uiQueries.loading;
+      this.error$ = this.uiQueries.errors;
+      console.log("Registration ui state loading: ", this.loading$);
+    
     // To initialize FormGroup
     this.userForm = this.fb.group({
       email: [
         null,
-        Validators.compose([Validators.required, Validators.email])
+        Validators.compose([Validators.required, Validators.email]),
       ],
       password: [null, Validators.required],
       confirmPassword: [
         null,
-        Validators.compose([Validators.required, this.passwordsMatch])
+        Validators.compose([Validators.required, this.passwordsMatch]),
       ],
-      handle: [null, Validators.required]
+      handle: [null, Validators.required],
     });
   }
 
@@ -58,31 +56,28 @@ export class RegisterComponent implements OnInit {
     let password = control.root.get("password");
     return password && control.value !== password.value
       ? {
-          passwordMatch: true
+          passwordMatch: true,
         }
       : null;
   }
 
   register() {
-    this.setError("");
-    this.loading = true;
+    // this.setError("");
+
     if (!this.userForm.valid) {
       return;
     }
 
     const user = this.userForm.value;
-    console.log(`Reg Compo ${user.handle}`);
+    
     this.userService.register(user).subscribe(
       () => {
         this.router.navigate([""]);
       },
-      e => {
-        this.setError(e);
+      (e) => {
+        console.log(e);
       }
     );
   }
 
-  private setError(msg: any) {
-    return this.error.next(msg);
-  }
 }

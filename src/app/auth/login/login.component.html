@@ -35,11 +35,11 @@
         </tr>
         <tr>
           <td>
-            <mat-error *ngIf="error">{{ error | async }}</mat-error>
+            <mat-error *ngIf="error$">{{ error$ | async }}</mat-error>
           </td>
         </tr>
       </table>
-      <mat-spinner *ngIf="loading"></mat-spinner>
+      <mat-spinner *ngIf="(loading$ | async)"></mat-spinner>
     </form>
   </mat-card-content>
   <mat-card-actions>
@@ -53,7 +53,7 @@
     </button>
     <div style="margin-top: 2em;">
       <span class="leftspacer"
-        >New to Product Mart?
+        >Johnny just come?
         <a [routerLink]="['/auth/register']"> Signup</a> here.
       </span>
     </div>

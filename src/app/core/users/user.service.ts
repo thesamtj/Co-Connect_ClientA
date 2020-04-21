@@ -6,8 +6,7 @@ import { TokenStorageService } from "@core/auth/token-storage.service";
 import { switchMap, catchError } from "rxjs/operators";
 import { throwError, of, EMPTY } from "rxjs";
 import { UserStore } from "./user-store";
-import { User } from "./user";
-import { UserCredentials } from "./userCredentials";
+import { UIStore } from '@core/ui/ui-store';
 
 @Injectable({
   providedIn: "root"
@@ -19,12 +18,13 @@ export class UserService {
   constructor(
     private logService: LogService,
     private http: HttpClient,
+    private uiStore: UIStore,
     private userStore: UserStore,
     private tokenStorage: TokenStorageService
   ) {}
 
   register(userToSave: any) {
-    // dispatch({ type: LOADING_UI });
+    this.uiStore.loadingUI();
 
     return this.http.post<any>(`${this.apiUrl}signup`, userToSave).pipe(
       switchMap(({ idToken }) => {
@@ -33,6 +33,11 @@ export class UserService {
         // dispatch({ type: CLEAR_ERRORS });
       }),
       catchError(err => {
+        if (err.name === "HttpErrorResponse") {
+          err = "No or poor Network...check your data connection"
+        }
+        
+        this.uiStore.setErrors(err);
         this.logService.log(`Server error occured`, err);
         return throwError("Registration failed please contact admin");
       })
@@ -40,7 +45,7 @@ export class UserService {
   }
 
   login(email: string, password: string) {
-    // dispatch({ type: LOADING_UI });
+    this.uiStore.loadingUI();
 
     const loginCredentials = { email, password };
     return this.http.post<any>(`${this.apiUrl}login`, loginCredentials).pipe(
@@ -50,6 +55,11 @@ export class UserService {
         // dispatch({ type: CLEAR_ERRORS });
       }),
       catchError(err => {
+        if (err.name === "HttpErrorResponse") {
+          err = "No or poor Network...check your data connection"
+        }
+          
+        this.uiStore.setErrors(err);
         this.logService.log(`Server error occured`, err);
         return throwError("Login failed please contact admin");
       })
@@ -63,6 +73,7 @@ export class UserService {
       switchMap(user => {
         console.log(`Auth user found`, user);
         this.userStore.setUser(user);
+        this.uiStore.clearErrors();
         return of(user);
       }),
       catchError(err => {

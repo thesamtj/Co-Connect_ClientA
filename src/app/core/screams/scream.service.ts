@@ -6,6 +6,7 @@ import { switchMap, catchError } from "rxjs/operators";
 import { of, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { UserStore } from "@core/users/user-store";
+import { UIStore } from '@core/ui/ui-store';
 
 @Injectable({
   providedIn: "root"
@@ -18,18 +19,23 @@ export class ScreamService {
     private logService: LogService,
     private screamStore: ScreamStore,
     private userStore: UserStore,
+    private uiStore: UIStore,
     private http: HttpClient
   ) {}
 
    // Post a scream
   postScream(screamBody) {
+    this.uiStore.loadingUI();
+    
     return this.http.post(`${this.apiUrl}scream`, screamBody).pipe(
       switchMap(scream => {
         this.screamStore.postScream(scream);
         console.log(`scream posted successfully`, scream);
+        this.uiStore.clearErrors();
         return of(scream);
       }),
       catchError(err => {
+        this.uiStore.setErrors(err);
         this.logService.log(`Server error occurred`, err);
         return throwError("Scream failed please contact admin");
       })
@@ -47,6 +53,7 @@ export class ScreamService {
         return of(screams);
       }),
       catchError(err => {
+        this.screamStore.setScreams([]);
         this.logService.log(`Server error occurred`, err);
         return throwError("Scream failed please contact admin");
       })
@@ -55,10 +62,13 @@ export class ScreamService {
 
   // get a scream
   getScream(screamId) {
+    this.uiStore.loadingUI;
+
     return this.http.get(`${this.apiUrl}scream/${screamId}`).pipe(
       switchMap(scream => {
         this.screamStore.setScream(scream);
         console.log(`Scream loaded successfully`, scream);
+        this.uiStore.stopLoadingUI;
         return of(scream);
       }),
       catchError(err => {
@@ -124,9 +134,11 @@ export class ScreamService {
       switchMap(comment => {
         this.screamStore.submitComment(comment);
         console.log(`Comment made successfully`, comment);
+        this.uiStore.clearErrors();
         return of(comment);
       }),
       catchError(err => {
+        this.uiStore.setErrors(err);
         this.logService.log(`Server error occurred`, err);
         return throwError("Scream failed please contact admin");
       })
@@ -150,6 +162,9 @@ export class ScreamService {
       })
     );
   }
+
+  
+
 
   // updateScream(screamToUpdate: Scream) {
   //   screamToUpdate = {
