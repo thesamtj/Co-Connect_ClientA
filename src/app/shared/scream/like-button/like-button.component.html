@@ -1,8 +1,8 @@
-<button *ngIf="!authenticated" routerLink="/auth">
+<button *ngIf="!authenticated$" routerLink="/auth">
   <mat-icon> favorite_border </mat-icon>
 </button>
 
-<ng-container *ngIf="authenticated">
+<ng-container *ngIf="authenticated$">
   <button
     *ngIf="likedScream()"
     mat-raised-button

@@ -36,9 +36,9 @@ export class UserService {
         if (err.name === "HttpErrorResponse") {
           err = "No or poor Network...check your data connection"
         }
-        
+
         this.uiStore.setErrors(err);
-        this.logService.log(`Server error occured`, err);
+        this.logService.log(`Server error occured: `, err);
         return throwError("Registration failed please contact admin");
       })
     );
@@ -60,7 +60,7 @@ export class UserService {
         }
           
         this.uiStore.setErrors(err);
-        this.logService.log(`Server error occured`, err);
+        this.logService.log(`Server error occured: `, err);
         return throwError("Login failed please contact admin");
       })
     );

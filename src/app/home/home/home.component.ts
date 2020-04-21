@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ScreamService } from "@core/screams/scream.service";
-import { ScreamQueries } from "@core/screams/scream-queries";
 
 @Component({
   selector: "app-home",

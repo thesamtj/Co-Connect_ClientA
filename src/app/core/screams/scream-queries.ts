@@ -19,5 +19,19 @@ export class ScreamQueries {
     );
   }
 
+  get scream() {
+    return this.screamState.pipe(
+      distinctUntilChanged(),
+      map(s => s.scream)
+    );
+  }
+
+  get loading() {
+    return this.screamState.pipe(
+      distinctUntilChanged(),
+      map(s => s.loading)
+    );
+  }
+
   
 }

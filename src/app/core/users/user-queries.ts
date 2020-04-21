@@ -18,5 +18,19 @@ export class UserQueries {
         map(u => u.userCredentials)
       );
     }
+
+    get authenticated() {
+      return this.userState.pipe(
+        distinctUntilChanged(),
+        map(u => u.authenticated)
+      );
+    }
+
+    get likes() {
+      return this.userState.pipe(
+        distinctUntilChanged(),
+        map(u => u.likes)
+      );
+    }
   
 }

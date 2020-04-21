@@ -8,41 +8,40 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { ConfirmationDialogComponent } from "@shared/scream/confirmation-dialog/confirmation-dialog.component";
 import { ScreamDialogComponent } from "@shared/scream/scream-dialog/scream-dialog.component";
 import { ScreamService } from "@core/screams/scream.service";
+import { UIQueries } from '@core/ui/ui-queries';
 
 @Component({
   selector: "app-scream",
   templateUrl: "./scream.component.html",
   styleUrls: ["./scream.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScreamComponent implements OnInit {
-  loading: boolean;
+  loading$: Observable<boolean>;
   screams$: Observable<Scream[]>;
-  authenticated: boolean;
+  authenticated$: Observable<boolean>;
   handle: string;
 
   constructor(
     private screamQueries: ScreamQueries,
     private userQueries: UserQueries,
+    private uiQueries: UIQueries,
     private screamService: ScreamService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
-    this.screamQueries.screamState.subscribe((s) => {
-      this.loading = s.loading;
-      console.log("Scream value of loading: ", this.loading);
-    });
-
     this.screams$ = this.screamQueries.screams;
     console.log("Screams arrived here safely", this.screams$);
 
-    this.userQueries.userState.subscribe((u) => {
-      this.authenticated = u.authenticated;
-      this.handle = u.userCredentials.handle;
-      console.log("Screams authenticated state: ", this.authenticated);
+    this.loading$ = this.screamQueries.loading;
+
+    this.userQueries.user.subscribe((u) => {
+      this.handle = u.handle;
     });
+
+    this.authenticated$ = this.userQueries.authenticated;
   }
 
   deleteDialog(screamId) {
@@ -73,19 +72,25 @@ export class ScreamComponent implements OnInit {
   }
 
   screamDialog(screamId, userHandle) {
-    this.screamService.getScream(screamId).subscribe(
-      (s) => {
-        this.dialog.open(ScreamDialogComponent, {
-          data: {
-            screamId: screamId,
-            userHandle: userHandle,
-          },
-          width: "400px",
-          height: "330px"
-        });
-      }
-    );
-    
+    this.screamService.getScream(screamId).subscribe((s) => {
+      console.log(s);
+    });
+
+    const dialogRefB = this.dialog.open(ScreamDialogComponent, {
+      data: {
+        screamId: screamId,
+        userHandle: userHandle,
+      },
+      width: "400px",
+      height: "330px",
+    });
+
+    dialogRefB.afterClosed().subscribe(() => {
+      const a = document.createElement("a");
+      a.click();
+      a.remove();
+      this.uiQueries.clearErrors();
+    });
   }
 
   ngOnDestroy() {}

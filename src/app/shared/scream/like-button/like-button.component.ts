@@ -2,10 +2,11 @@ import {
   Component,
   OnInit,
   Input,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from "@angular/core";
 import { UserQueries } from "@core/users/user-queries";
 import { ScreamService } from "@core/screams/scream.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-like-button",
@@ -16,26 +17,25 @@ import { ScreamService } from "@core/screams/scream.service";
 export class LikeButtonComponent implements OnInit {
   @Input()
   screamId: string;
-  likes: any[];
-  authenticated: boolean;
-  iconName: string = "favorite_border";
+  likes$: Observable<any[]>;
+  authenticated$: Observable<boolean>;
 
   constructor(
     private screamService: ScreamService,
-    private userQueries: UserQueries  ) {}
+    private userQueries: UserQueries
+  ) {}
 
   ngOnInit() {
-    this.userQueries.userState.subscribe(s => {
-      this.authenticated = s.authenticated;
-      this.likes = s.likes;
-      console.log("LikeButton authenticated: ", this.authenticated);
-    });
+    this.likes$ = this.userQueries.likes;
+    this.authenticated$ = this.userQueries.authenticated;
   }
 
   likedScream() {
     if (
-      this.likes &&
-      this.likes.find(like => like.screamId === this.screamId)
+      this.likes$ &&
+      this.likes$.subscribe((likes) =>
+        likes.find((like) => like.screamId === this.screamId)
+      )
     ) {
       return true;
     } else {
@@ -45,18 +45,18 @@ export class LikeButtonComponent implements OnInit {
 
   likeScream() {
     this.screamService.likeScream(this.screamId).subscribe(
-      s => {
+      (s) => {
         console.log(s);
       },
-      e => console.log(e)
+      (e) => console.log(e)
     );
   }
   unlikeScream() {
     this.screamService.unlikeScream(this.screamId).subscribe(
-      s => {
+      (s) => {
         console.log(s);
       },
-      e => console.log(e)
+      (e) => console.log(e)
     );
   }
 }

@@ -1,4 +1,4 @@
-<mat-card class="comment-card">
+<mat-card *ngIf="(authenticated | async)" class="comment-card">
     <mat-card-header>
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
@@ -20,7 +20,7 @@
           </tr>
          <tr>
             <td>
-              <mat-error *ngIf="error">{{ error | async }}</mat-error>
+              <mat-error *ngIf="error">{{ error$ | async }}</mat-error>
             </td>
           </tr>
         </table>
@@ -37,5 +37,5 @@
       Submit
       </button>
     </mat-card-actions>
-  </mat-card>
+</mat-card>
   
