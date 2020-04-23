@@ -62,13 +62,13 @@ export class ScreamService {
 
   // get a scream
   getScream(screamId) {
-    this.uiStore.loadingUI;
+    this.uiStore.loadingUI();
 
     return this.http.get(`${this.apiUrl}scream/${screamId}`).pipe(
       switchMap(scream => {
         this.screamStore.setScream(scream);
         console.log(`Scream loaded successfully`, scream);
-        this.uiStore.stopLoadingUI;
+        this.uiStore.stopLoadingUI();
         return of(scream);
       }),
       catchError(err => {

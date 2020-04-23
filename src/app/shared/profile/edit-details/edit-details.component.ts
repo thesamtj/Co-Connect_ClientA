@@ -48,14 +48,8 @@ export class EditDetailsComponent implements OnInit {
       website: this.website,
       location: this.location,
     };
-    this.userService.editUserDetails(userDetails).subscribe(
-      (u) => {
-        this.closeDialog();
-      },
-      (e) => {
-        this.closeDialog();
-      }
-    );
+    this.userService.editUserDetails(userDetails).subscribe(() => this.closeDialog());
+    
   }
 
   private closeDialog() {

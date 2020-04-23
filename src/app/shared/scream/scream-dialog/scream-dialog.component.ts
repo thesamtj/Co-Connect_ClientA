@@ -29,9 +29,7 @@ export class ScreamDialogComponent implements OnInit {
   constructor(
     private screamQueries: ScreamQueries,
     private uiQueries: UIQueries,
-    @Inject(MAT_DIALOG_DATA) data: any,
-    private dialogRef: MatDialogRef<ScreamDialogComponent>
-  ) {
+    @Inject(MAT_DIALOG_DATA) data: any  ) {
     if (data) {
       this.screamId = data.screamId;
       this.userHandle = data.userHandle;

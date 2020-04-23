@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { EditDetailsComponent } from "@shared/profile/edit-details/edit-details.component";
 import { UserService } from "@core/users/user.service";
 import { UserQueries } from "@core/users/user-queries";
@@ -11,7 +11,7 @@ import { UserCredentials } from "@core/users/userCredentials";
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit {
   userCredentials$: Observable<UserCredentials>;
@@ -59,13 +59,12 @@ export class ProfileComponent implements OnInit {
   openDialog(userCredentials) {
     const { bio, website, location } = userCredentials;
 
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { bio, website, location };
-    dialogConfig.width = "400px";
-    dialogConfig.height = "330px";
-    dialogConfig.disableClose = true;
-
-    const dialogRef = this.matDialog.open(EditDetailsComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(EditDetailsComponent, {
+      data: { bio, website, location },
+      width: "400px",
+      height: "330px",
+      disableClose: true,
+    });
 
     dialogRef.afterClosed().subscribe(() => {
       const a = document.createElement("a");

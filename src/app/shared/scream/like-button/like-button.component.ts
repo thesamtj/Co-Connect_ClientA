@@ -12,7 +12,7 @@ import { Observable } from "rxjs";
   selector: "app-like-button",
   templateUrl: "./like-button.component.html",
   styleUrls: ["./like-button.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LikeButtonComponent implements OnInit {
   @Input()
@@ -31,12 +31,13 @@ export class LikeButtonComponent implements OnInit {
   }
 
   likedScream() {
-    if (
-      this.likes$ &&
-      this.likes$.subscribe((likes) =>
-        likes.find((like) => like.screamId === this.screamId)
-      )
-    ) {
+    let test;
+
+    this.likes$.subscribe((likes) => {
+      test = likes.find((like) => like.screamId === this.screamId);
+    });
+
+    if (this.likes$ && test) {
       return true;
     } else {
       return false;
