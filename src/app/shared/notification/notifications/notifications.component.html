@@ -15,10 +15,10 @@
     </button>
   </mat-menu>
 
-  <mat-menu #menu="matMenu" *ngIf="notifications && notifications.length > 0">
+  <mat-menu #menu="matMenu" *ngIf="(notifications | async) && (notifications | async).length > 0">
     <button
       mat-menu-item
-      *ngFor="let not of notifications"
+      *ngFor="let not of (notifications | async)"
     >
       <ng-container *ngIf="not.type === like">
         <mat-icon>favorite</mat-icon>

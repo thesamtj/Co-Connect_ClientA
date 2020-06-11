@@ -10,7 +10,7 @@ import { UserService } from "@core/users/user.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsComponent implements OnInit {
-  notifications: any[];
+  notifications: Observable<any[]>;
   notificationsIcon: any;
   notItemCount: number;
 
@@ -20,14 +20,12 @@ export class NotificationsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userQueries.userState.subscribe((u) => {
-      this.notifications = u.notifications;
-      console.log("Notifications arrived here: ", this.notifications);
-
-      if (this.notifications && this.notifications.length > 0) {
-        if (this.notifications.filter((not) => not.read === false).length > 0) {
+    this.notifications = this.userQueries.notifications;
+    this.notifications.subscribe((notifications) => {
+      if (notifications && notifications.length > 0) {
+        if (notifications.filter((not) => not.read === false).length > 0) {
           this.notificationsIcon = "notifications";
-          this.notItemCount = this.notifications.filter(
+          this.notItemCount = notifications.filter(
             (not) => not.read === false
           ).length;
         } else {
@@ -42,9 +40,13 @@ export class NotificationsComponent implements OnInit {
   }
 
   onMenuOpened() {
-    let unreadNotificationsIds = this.notifications
-      .filter((not) => !not.read)
-      .map((not) => not.notificationId);
+    let unreadNotificationsIds;
+    
+    this.notifications.subscribe((notifications) => {
+      unreadNotificationsIds = notifications
+        .filter((not) => !not.read)
+        .map((not) => not.notificationId);
+    });
     this.userService
       .markNotificationsRead(unreadNotificationsIds)
       .subscribe((s) => {

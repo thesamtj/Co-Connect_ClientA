@@ -40,4 +40,11 @@ export class UserQueries {
       );
     }
 
+    get notifications() {
+      return this.userState.pipe(
+        distinctUntilChanged(),
+        map(s => s.notifications)
+      );
+    }
+
 }
