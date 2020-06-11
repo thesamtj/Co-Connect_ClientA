@@ -19,7 +19,12 @@
         <mat-icon> delete </mat-icon>
       </button>
     </mat-card-header>
-    <img mat-card-image [src]="scream.userImage" alt="Photo of a Shiba Inu" />
+    <img
+      mat-card-image
+      class="example-card-image"
+      [src]="scream.userImage"
+      alt="Post's image"
+    />
     <mat-card-content>
       <p>
         {{ scream.body }}
