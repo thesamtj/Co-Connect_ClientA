@@ -1,21 +1,20 @@
-
 $iconWidth: 50px;
 
 .sc-container {
   display: flex;
   flex-direction: row;
   align-content: space-around;
-  margin: 20px auto 0 auto;
+  margin: 10px auto 0 auto;
   width: 60%;
 }
 
-.sc-items {
+.sc-items1 {
   flex: 0 1 auto;
   width: 65%;
   margin: 0.3em;
 }
 
-.sc-summary {
+.sc-items2 {
   flex: 0 1 auto;
   width: 35%;
   margin: 0.3em;

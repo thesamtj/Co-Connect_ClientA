@@ -1,6 +1,9 @@
 .example-card {
   margin-bottom: 4px;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .example-card-image {
@@ -11,4 +14,3 @@
   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-size: cover;
 }
-
