@@ -20,6 +20,12 @@ $iconWidth: 50px;
   margin: 0.3em;
 }
 
+.mat-icon {
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+
 @media all and(max-width:800px) {
   .sc-container {
     justify-content: flex-start;
