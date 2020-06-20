@@ -15,6 +15,7 @@
         mat-raised-button
         *ngIf="(authenticated$ | async) && scream.userHandle === handle"
         (click)="deleteDialog(scream.screamId)"
+        matTooltip="Delete Post"
       >
         <mat-icon> delete </mat-icon>
       </button>
