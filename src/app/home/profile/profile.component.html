@@ -41,8 +41,8 @@
       hidden="hidden"
       (change)="handleImageChange($event)"
     />
-    <button (click)="handleEditPicture()">
-      <mat-icon matTooltip="Edit profile picture">edit</mat-icon></button
+    <button (click)="handleEditPicture()" matTooltip="Edit profile picture">
+      <mat-icon>edit</mat-icon></button
     ><br /><br />
     <mat-card-content>
       <div *ngIf="(userCredentials$ | async).bio">
@@ -79,7 +79,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="logout()"><mat-icon>keyboard_return</mat-icon></button>
+      <button (click)="logout()" matTooltip="Logout"><mat-icon>keyboard_return</mat-icon></button>
       <button mat-raised-button color="primary" (click)="editDetails()">
         <mat-icon>edit</mat-icon>
       </button>
