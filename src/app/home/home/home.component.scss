@@ -25,6 +25,10 @@ $iconWidth: 50px;
   margin: 0 5px;
 }
 
+a {
+  text-decoration: none;
+}
+
 
 @media all and(max-width:800px) {
   .sc-container {
