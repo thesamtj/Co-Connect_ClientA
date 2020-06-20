@@ -1,4 +1,4 @@
-<mat-card class="example-card" *ngIf="(loading$ | async)">
+<mat-card class="example-card" *ngIf="loading$ | async">
   <mat-card-content>
     <p>Profile Skeleton...</p>
   </mat-card-content>
@@ -9,7 +9,9 @@
     <mat-card-content>
       <p>No profile found, please login again</p>
       <div>
-        <a mat-button routerLink="/auth" routerLinkActive="active-link">Login </a>
+        <a mat-button routerLink="/auth" routerLinkActive="active-link"
+          >Login
+        </a>
       </div>
       <div>
         <a mat-button routerLink="/auth/register" routerLinkActive="active-link"
@@ -18,8 +20,8 @@
       </div>
     </mat-card-content>
   </mat-card>
-  
-  <mat-card class="example-card" *ngIf="(authenticated$ | async)">
+
+  <mat-card class="example-card" *ngIf="authenticated$ | async">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>@{{ (userCredentials$ | async).handle }}</mat-card-title>
@@ -29,7 +31,7 @@
     </mat-card-header>
     <div class="card-image">
       <img mat-card-image [src]="(userCredentials$ | async).imageUrl" />
-      <mat-spinner *ngIf="(loading$ | async)"></mat-spinner>
+      <mat-spinner *ngIf="loading$ | async"></mat-spinner>
     </div>
     <input
       name="imageChange"
@@ -39,7 +41,8 @@
       hidden="hidden"
       (change)="handleImageChange($event)"
     />
-    <button (click)="handleEditPicture()"><mat-icon>edit</mat-icon></button
+    <button (click)="handleEditPicture()">
+      <mat-icon matTooltip="Edit profile picture">edit</mat-icon></button
     ><br /><br />
     <mat-card-content>
       <div *ngIf="(userCredentials$ | async).bio">
@@ -50,7 +53,9 @@
       </div>
       <div *ngIf="(userCredentials$ | async).location">
         <mat-icon>location_on</mat-icon>
-        <span class="user-detail">{{ (userCredentials$ | async).location }} </span>
+        <span class="user-detail"
+          >{{ (userCredentials$ | async).location }}
+        </span>
         <hr />
       </div>
       <div *ngIf="(userCredentials$ | async).website">
