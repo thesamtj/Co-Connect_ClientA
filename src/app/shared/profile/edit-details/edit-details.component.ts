@@ -6,7 +6,6 @@ import {
 } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UserService } from "@core/users/user.service";
-import { UserQueries } from "@core/users/user-queries";
 
 interface EditDetailsData {
   website: string;
