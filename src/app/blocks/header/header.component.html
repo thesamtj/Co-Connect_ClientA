@@ -24,6 +24,23 @@
         <div fxShow="true" fxHide.lt-md="true">
           <app-notifications matTooltip="Notifications"></app-notifications>
         </div>
+
+        <span class="header-spacer"></span>
+
+        <div>
+          <a [matMenuTriggerFor]="menu" mat-button
+            ><mat-icon>account_circle</mat-icon>
+            <span fxShow="true" fxHide.lt-md="true" class="user-name">
+              <span>Hi</span>
+              <span
+                ><strong> {{ user.handle }}!</strong></span
+              >
+            </span>
+          </a>
+          <mat-menu #menu="matMenu">
+            <button (click)="logout()" mat-menu-item>logout</button>
+          </mat-menu>
+        </div>
       </ng-container>
 
       <ng-container *ngIf="!authenticated">
@@ -40,31 +57,21 @@
             >Signup
           </a>
         </div>
-      </ng-container>
 
-      <span class="header-spacer"></span>
-      <a
-        *ngIf="!user"
+        <span class="header-spacer"></span>
+
+        <a
         mat-button
         routerLink="/auth"
         routerLinkActive="active-link"
       >
         <mat-icon>person_outliner</mat-icon>Login
       </a>
-      <div>
-        <a [matMenuTriggerFor]="menu" *ngIf="user" mat-button
-          ><mat-icon>account_circle</mat-icon>
-          <span fxShow="true" fxHide.lt-md="true" class="user-name">
-            <span>Hi</span>
-            <span
-              ><strong> {{ user.handle }}!</strong></span
-            >
-          </span>
-        </a>
-        <mat-menu #menu="matMenu">
-          <button (click)="logout()" mat-menu-item>logout</button>
-        </mat-menu>
-      </div>
+      </ng-container>
+
+      
+      
+      
     </mat-toolbar-row>
   </mat-toolbar>
 
