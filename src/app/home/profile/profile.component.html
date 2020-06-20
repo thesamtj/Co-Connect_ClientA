@@ -79,8 +79,15 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="logout()" matTooltip="Logout"><mat-icon>keyboard_return</mat-icon></button>
-      <button mat-raised-button color="primary" (click)="editDetails()">
+      <button (click)="logout()" matTooltip="Logout">
+        <mat-icon>keyboard_return</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        matTooltip="Edit details"
+        (click)="editDetails()"
+      >
         <mat-icon>edit</mat-icon>
       </button>
     </mat-card-actions>
