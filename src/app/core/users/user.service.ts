@@ -6,10 +6,10 @@ import { TokenStorageService } from "@core/auth/token-storage.service";
 import { switchMap, catchError } from "rxjs/operators";
 import { throwError, of, EMPTY } from "rxjs";
 import { UserStore } from "./user-store";
-import { UIStore } from '@core/ui/ui-store';
+import { UIStore } from "@core/ui/ui-store";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class UserService {
   private apiUrl =
@@ -32,9 +32,9 @@ export class UserService {
         return this.getUserData();
         // dispatch({ type: CLEAR_ERRORS });
       }),
-      catchError(err => {
+      catchError((err) => {
         if (err.name === "HttpErrorResponse") {
-          err = "Poor or No Network...check your data connection"
+          err = "Poor or No Network...check your data connection";
         }
 
         this.uiStore.setErrors(err);
@@ -54,11 +54,11 @@ export class UserService {
         return this.getUserData();
         // dispatch({ type: CLEAR_ERRORS });
       }),
-      catchError(err => {
+      catchError((err) => {
         if (err.name === "HttpErrorResponse") {
-          err = "Poor or No Network...check your data connection"
+          err = "Poor or No Network...check your data connection";
         }
-          
+
         this.uiStore.setErrors(err);
         this.logService.log(`Server error occured: `, err);
         return throwError("Login failed please contact admin");
@@ -70,13 +70,13 @@ export class UserService {
     this.userStore.loadingUser();
 
     return this.http.get<any>(`${this.apiUrl}user`).pipe(
-      switchMap(user => {
+      switchMap((user) => {
         console.log(`Auth user found`, user);
         this.userStore.setUser(user);
         this.uiStore.clearErrors();
         return of(user);
       }),
-      catchError(err => {
+      catchError((err) => {
         this.logService.log(`Server error occured`, err);
         return throwError("Getting user failed please contact admin");
       })
@@ -115,7 +115,7 @@ export class UserService {
       switchMap(() => {
         return this.getUserData();
       }),
-      catchError(err => {
+      catchError((err) => {
         this.logService.log(`Server error occured`, err);
         return throwError("Image upload failed");
       })
@@ -128,29 +128,30 @@ export class UserService {
     location: string;
   }) {
     this.userStore.loadingUser();
-    
+
     return this.http.post<any>(`${this.apiUrl}user`, userDetails).pipe(
       switchMap(() => {
         return this.getUserData();
       }),
-      catchError(err => {
-        this.logService.log(`Server error occured`, err);
-        return throwError("Image upload failed");
+      catchError((err) => {
+        this.logService.log(`Editing details failed`, err);
+        return throwError("Editing details failed");
       })
     );
   }
 
   markNotificationsRead(notificationIds) {
-    return this.http.post<any>(`${this.apiUrl}notifications`, notificationIds).pipe(
-      switchMap((not) => {
-        this.userStore.markNotificationsRead();
-        return of(not);
-      }),
-      catchError(err => {
-        this.logService.log(`Server error occured`, err);
-        return throwError("Notification read failed");
-      })
-    );
+    return this.http
+      .post<any>(`${this.apiUrl}notifications`, notificationIds)
+      .pipe(
+        switchMap((not) => {
+          this.userStore.markNotificationsRead();
+          return of(not);
+        }),
+        catchError((err) => {
+          this.logService.log(`Server error occured`, err);
+          return throwError("Notification read failed");
+        })
+      );
   }
-
 }

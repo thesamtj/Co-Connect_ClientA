@@ -27,7 +27,8 @@ export class EditDetailsComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) data: EditDetailsData,
     private matDialogRef: MatDialogRef<EditDetailsComponent>,
-    private userService: UserService  ) {
+    private userService: UserService
+  ) {
     this.bio = data.bio ? data.bio : "";
     this.website = data.website ? data.website : "";
     this.location = data.location ? data.location : "";
@@ -47,8 +48,9 @@ export class EditDetailsComponent implements OnInit {
       website: this.website,
       location: this.location,
     };
-    this.userService.editUserDetails(userDetails).subscribe(() => this.closeDialog());
-    
+    this.userService
+      .editUserDetails(userDetails)
+      .subscribe(() => this.closeDialog());
   }
 
   private closeDialog() {
