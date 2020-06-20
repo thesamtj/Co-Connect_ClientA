@@ -34,7 +34,9 @@
     <mat-card-actions>
       <app-like-button [screamId]="scream.screamId"></app-like-button>
       <span> {{ scream.likeCount }} Likes </span>
-      <button mat-raised-button color="primary">
+      <button 
+      mat-raised-button color="primary"
+      matTooltip="Comments">
         <mat-icon> chat </mat-icon>
       </button>
       <span> {{ scream.commentCount }} Comments </span>
