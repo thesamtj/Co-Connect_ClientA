@@ -1,4 +1,4 @@
-<div style="height: 100vh">
+<div style="height: 100vh;">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button
@@ -12,60 +12,59 @@
       <span class="pm-title">Co-Connect</span>
       <span class="left-spacer"></span>
 
-      <ng-container *ngIf="(authenticated)">
+      <ng-container *ngIf="authenticated">
         <div fxShow="true" fxHide.lt-md="true">
-          <a mat-button (click)="openPost()"
-            ><mat-icon>add</mat-icon>
-          </a>
+          <a mat-button (click)="openPost()"><mat-icon>add</mat-icon> </a>
         </div>
         <div fxShow="true" fxHide.lt-md="true">
           <a mat-button routerLink="/home" routerLinkActive="active-link"
-            ><mat-icon>home</mat-icon>
+            ><mat-icon matTooltip="Home">home</mat-icon>
           </a>
         </div>
         <div fxShow="true" fxHide.lt-md="true">
-          <app-notifications></app-notifications>
+          <app-notifications matTooltip="Notifications"></app-notifications>
         </div>
       </ng-container>
-      
-      <ng-container *ngIf="!(authenticated)">
+
+      <ng-container *ngIf="!authenticated">
         <div fxShow="true" fxHide.lt-md="true">
           <a mat-button routerLink="/home" routerLinkActive="active-link"
             >Home
           </a>
         </div>
         <div fxShow="true" fxHide.lt-md="true">
-          <a mat-button routerLink="/auth/register" routerLinkActive="active-link"
+          <a
+            mat-button
+            routerLink="/auth/register"
+            routerLinkActive="active-link"
             >Signup
           </a>
         </div>
       </ng-container>
-      
-        <span class="header-spacer"></span>
-        <a
-          *ngIf="!(user)"
-          mat-button
-          routerLink="/auth"
-          routerLinkActive="active-link"
-        >
-          <mat-icon>person_outliner</mat-icon>Login
+
+      <span class="header-spacer"></span>
+      <a
+        *ngIf="!user"
+        mat-button
+        routerLink="/auth"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>person_outliner</mat-icon>Login
+      </a>
+      <div>
+        <a [matMenuTriggerFor]="menu" *ngIf="user" mat-button
+          ><mat-icon>account_circle</mat-icon>
+          <span fxShow="true" fxHide.lt-md="true" class="user-name">
+            <span>Hi</span>
+            <span
+              ><strong> {{ user.handle }}!</strong></span
+            >
+          </span>
         </a>
-        <div>
-          <a [matMenuTriggerFor]="menu" *ngIf="(user)" mat-button
-            ><mat-icon>account_circle</mat-icon>
-            <span fxShow="true" fxHide.lt-md="true" class="user-name">
-              <span>Hi</span>
-              <span
-                ><strong> {{ user.handle }}!</strong></span
-              >
-            </span>
-          </a>
-          <mat-menu #menu="matMenu">
-            <button (click)="logout()" mat-menu-item>logout</button>
-          </mat-menu>
-        </div>
-      
-      
+        <mat-menu #menu="matMenu">
+          <button (click)="logout()" mat-menu-item>logout</button>
+        </mat-menu>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -78,7 +77,7 @@
           (click)="sidenav.toggle()"
           routerLinkActive="active-link"
         >
-        Home
+          Home
         </a>
       </mat-nav-list>
     </mat-sidenav>
